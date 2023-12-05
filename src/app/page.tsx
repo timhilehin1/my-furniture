@@ -1,10 +1,14 @@
+
 import React from "react";
 import { Metadata } from "next";
-// import Home from "./pages/Home";
+import HomePage from "@/screens/Home";
+
+export const metadata: Metadata = {
+	title: "home",
+	description: "Welcome to my furniture store",
+};
 export default function Home() {
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
-			<p>Hi, this is the start of something good</p>
-		</main>
+		<HomePage/>
 	);
 }

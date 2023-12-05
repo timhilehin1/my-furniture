@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import { IoMenu, IoSearch } from "react-icons/io5";
 import { MdOutlineChair } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa6";
-import { IoIosStarOutline } from "react-icons/io";  
+import { IoIosStarOutline } from "react-icons/io";
 
 const Navbar = () => {
 	return (
@@ -15,7 +16,9 @@ const Navbar = () => {
 			</div>
 
 			{/* //desktop */}
-			<div className='hidden md:flex items-center gap-3'>
+			<div
+				className='hidden md:flex items-center gap-3 cursor-pointer'
+			>
 				<MdOutlineChair size={24} />
 				<p>MyFurniture</p>
 			</div>
@@ -27,7 +30,7 @@ const Navbar = () => {
 			</div>
 
 			{/* desktop */}
-			<div className='items-center gap-16 hidden md:flex'>
+			<div className='items-center gap-16 hidden md:flex cursor-pointer'>
 				<p>Home</p>
 				<p>Collection</p>
 				<p>Products</p>
@@ -43,9 +46,9 @@ const Navbar = () => {
 			{/* desktop */}
 			<div className='hidden md:flex items-center gap-8'>
 				<IoSearch size={24} />
-        <FaRegUser size={24} />
-        <IoIosStarOutline size={24} />
-        <AiOutlineShoppingCart size={24} />
+				<FaRegUser size={24} />
+				<IoIosStarOutline size={24} />
+				<AiOutlineShoppingCart size={24} />
 			</div>
 		</nav>
 	);
