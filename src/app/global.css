@@ -1,19 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,200;1,300&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
-
 :root {
 	--foreground-rgb: 0, 0, 0;
-	font-family: "Jost", sans-serif;
 	border: 0;
 	padding: 0;
+	font-size: 14px;
 	--primary-color: #fff;
 	--secondary-color: #0a5d5d;
 	--secondary-text-color: #6b7280;
-	font-size: 14px;
-	--swiper-theme-color: #fff!important;
-	--swiper-navigation-size: 2rem!important;
+	--swiper-theme-color: #fff !important;
+	--swiper-pagination-color: #0a5d5d !important;
+	--swiper-navigation-size: 2rem !important;
+	--swiper-pagination-bottom: 2px !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,8 +38,6 @@
 		font-size: 16px;
 	}
 }
-
-
 
 body {
 	color: rgb(var(--foreground-rgb));

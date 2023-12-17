@@ -4,13 +4,13 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import NewsletterDialog from "./NewsletterDialog";
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 export default function Hero() {
 	return (
-		<section className=' h-screen relative flex justify-center'>
+		<section className='relative h-[15rem] md:h-[30rem] lg:h-[40rem] flex justify-center'>
 			<div className='h-full w-full object-cover absolute'>
 				<Swiper
 					spaceBetween={30}
@@ -26,23 +26,25 @@ export default function Hero() {
 				>
 					<SwiperSlide>
 						<Image
+							priority={true}
 							src={"/furniture-hero2.png"}
 							alt='Hero Image'
 							width={0}
 							height={0}
 							sizes='100vw'
-							style={{ width: "100%", height: "auto"}}
+							style={{ width: "100%", height: "auto" }}
 						/>
 					</SwiperSlide>
 
 					<SwiperSlide>
 						<Image
+							priority={true}
 							src={"/furniture-hero.png"}
 							alt='Hero Image'
 							width={0}
 							height={0}
 							sizes='100vw'
-							style={{ width: "100%", height: "auto"}}
+							style={{ width: "100%", height: "auto" }}
 						/>
 					</SwiperSlide>
 				</Swiper>
