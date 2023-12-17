@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+	--foreground-rgb: 0, 0, 0;
+	border: 0;
+	padding: 0;
+	font-size: 14px;
+	--primary-color: #fff;
+	--secondary-color: #0a5d5d;
+	--secondary-text-color: #6b7280;
+	--swiper-theme-color: #fff !important;
+	--swiper-pagination-color: #0a5d5d !important;
+	--swiper-navigation-size: 2rem !important;
+	--swiper-pagination-bottom: 2px !important;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--foreground-rgb: 255, 255, 255;
+	}
+}
+
+@media (max-width: 768px) {
+	:root {
+		font-size: 14px;
+	}
+}
+
+@media (max-width: 1024px) {
+	:root {
+		font-size: 15px;
+	}
+}
+
+@media (min-width: 1280px) {
+	:root {
+		font-size: 16px;
+	}
+}
+
+body {
+	color: rgb(var(--foreground-rgb));
+	background: linear-gradient(
+			to bottom,
+			transparent,
+			rgb(var(--background-end-rgb))
+		)
+		rgb(var(--background-start-rgb));
+}
