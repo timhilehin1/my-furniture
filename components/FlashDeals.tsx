@@ -1,3 +1,4 @@
+"use client";
 import React, { useCallback, useRef } from "react";
 import ProductCard from "./ProductCard";
 import Image from "next/image";

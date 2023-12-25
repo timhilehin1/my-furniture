@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";

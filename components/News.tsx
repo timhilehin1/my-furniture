@@ -1,3 +1,4 @@
+"use client";
 import React, { useCallback, useRef } from "react";
 import NewsCard from "./NewsCard";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";

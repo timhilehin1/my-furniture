@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import TrendingProducts from "./TrendingProducts";
 import SaleOffProducts from "./SaleOffProducts";

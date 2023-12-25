@@ -1,11 +1,33 @@
-import React, { useCallback, useRef } from "react";
+"use client";
+import React, { useCallback, useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { MdOutlineChevronLeft, MdOutlineChevronRight } from "react-icons/md";
+import { fetchNewArrivals } from "@/sanity/sanity.query";
+import { ProductInterface } from "@/interfaces/product.interface";
 
 function NewArrivals() {
+	const [newArrivals, setNewArrivals] = useState<ProductInterface[]>([]);
+
+	useEffect(() => {
+		getData();
+	}, []);
+	const numArr = [1, 2, 3];
+
+	const getData = async () => {
+		//implement error boundary so one there is an issue with a component, it doesn't affect the whole app
+		try {
+			const data = await fetchNewArrivals();
+			console.log(data);
+			setNewArrivals(data);
+		} catch (err) {
+			console.log(err);
+			setNewArrivals([]);
+		}
+	};
+
 	//it works sha
 	const sliderRef = useRef(null);
 	const handlePrev = useCallback(() => {
