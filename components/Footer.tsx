@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { MdOutlineChair } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosCall } from "react-icons/io";
@@ -15,27 +16,44 @@ import { FaXTwitter } from "react-icons/fa6";
 import { SiVisa } from "react-icons/si";
 import Image from "next/image";
 import AccordionComponent from "./Accordion";
+import { fetchBusinessInformation } from "@/sanity/sanity.query";
+import { informationInterface } from "@/interfaces/Information.interface";
 
 function Footer() {
+	useEffect(() => {
+		getData();
+	}, []);
+	const [data, setData] = useState<informationInterface[]>([]);
+
+	const getData = async () => {
+		try {
+			const data = await fetchBusinessInformation();
+			// console.log(data)
+			setData(data)
+		} catch (err) {
+			console.log(err);
+			setData([]);
+		}
+	};
 	return (
 		<>
 			<section className='p-4 mt-16 flex flex-wrap gap-4 justify-between'>
 				<div className='flex text-secondary-text-color flex-col gap-8'>
 					<div className='flex text-xl font-medium text-black flex-row items-center gap-2'>
 						<MdOutlineChair size={30} />
-						<p>MyFurniture</p>
+						<p>{data[0]?.businessName}</p>
 					</div>
 					<div className='flex flex-row items-center gap-2'>
 						<CiLocationOn size={24} />
-						<p>5, Church Street Ota</p>
+						<p>{data[0]?.businessAddress}</p>
 					</div>
 					<div className='flex flex-row items-center gap-2'>
 						<IoIosCall size={24} />
-						<p>08138109620</p>
+						<p>{data[0]?.businessPhone}</p>
 					</div>
 					<div className='flex flex-row items-center gap-2'>
 						<CgMail size={24} />
-						<p>timilehinoladapo0@gmail.com</p>
+						<p>{data[0]?.businessEmail}</p>
 					</div>
 				</div>
 
@@ -84,7 +102,7 @@ function Footer() {
 					</AccordionComponent>
 
 					<AccordionComponent title={"Newsletters"}>
-						<div  className='flex  semiLarge:hidden  text-secondary-text-color flex-col gap-4'>
+						<div className='flex  semiLarge:hidden  text-secondary-text-color flex-col gap-4'>
 							<div className='flex items-center'>
 								<input
 									type='text'

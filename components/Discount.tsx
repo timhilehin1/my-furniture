@@ -32,6 +32,7 @@ function Discount() {
 					{numArr.map((el) => (
 						<>
 							<Skeleton
+							   key={el}
 								containerClassName='flex-1'
 								height={150}
 								duration={2}

@@ -1,13 +1,24 @@
 
+export interface imageInterface{
+    imageUrl: string;
+    caption: string;
+    attribution: string;
+}
+
+export interface ProductSectionInterface{
+    sectionName: string;
+}
+
 export interface ProductInterface {
     productName: string;
-    ProductPrice: number;
+    productPrice: number;
     discountStatus?: boolean;
     discountPrice?: number;
     productDescription?: string;
+    productSection: ProductSectionInterface[];
     availabilityStatus: boolean;
     productCategory:[];
     productSize?: [];
     slug?: string;
-    productImages: [];
+    productImages: imageInterface[];
 }
