@@ -19,6 +19,7 @@ import AccordionComponent from "./Accordion";
 import { fetchBusinessInformation } from "@/sanity/sanity.query";
 import { informationInterface } from "@/interfaces/Information.interface";
 
+
 function Footer() {
 	useEffect(() => {
 		getData();

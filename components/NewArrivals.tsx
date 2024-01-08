@@ -11,17 +11,15 @@ import {
 	imageInterface,
 	ProductSectionInterface,
 } from "@/interfaces/product.interface";
-import { calculateDiscount } from "@/utils/utils";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import { IoCartOutline, IoStarOutline, IoStarSharp } from "react-icons/io5";
-import { CiImageOn } from "react-icons/ci";
+import ProductCard from "./ProductCard";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { addToWishlist, removeFromWishlist } from "@/lib/slices/wishlistSlice";
 
 function NewArrivals() {
+	const dispatch = useAppDispatch();
+	const wishlist = useAppSelector((state) => state.wishlist);
 	useEffect(() => {
 		getData();
 		getGalleryImages();
@@ -58,12 +56,17 @@ function NewArrivals() {
 	const getGalleryImages = async () => {
 		try {
 			const data = await fetchGalleryImages();
-			console.log(data[0].images);
+			// console.log(data[0].images);
 			setGalleryImages(data[0].images);
 		} catch (err) {
 			console.log(err);
 			setGalleryImages([]);
 		}
+	};
+
+	const handleAddToWishlist = (item: ProductInterface) => {
+		// save to global store
+		dispatch(addToWishlist(item));
 	};
 
 	//it works sha
@@ -161,110 +164,23 @@ function NewArrivals() {
 					{newArrivals.length > 0
 						? newArrivals.map((item, index) => (
 								// card component begins here
-								<div key={index} className='cursor-pointer relative group card'>
-									<>
-										{/* discount percentage */}
-										{item?.discountStatus && item?.discountPrice !== null ? (
-											<div className='discount-percentage text-white text-sm inline-block absolute left-2 top-2 bg-red-700  p-1.5 rounded-md'>
-												-
-												{calculateDiscount(
-													item?.productPrice,
-													item?.discountPrice
-												)}
-											</div>
-										) : null}
-										{/* wishlist and preview buttons */}
-										<section className='flex flex-col gap-5 semiLarge:gap-3 absolute right-2.5 semiLarge:right-5 top-2 text-secondary-color z-50'>
-											<Tooltip title='Quick Add' placement='top' arrow>
-												<div className='bg-primary-color h-8 w-8 rounded-[50%] flex justify-center items-center hover:bg-secondary-color hover:text-primary-color'>
-													<IoCartOutline size={16} />
-												</div>
-											</Tooltip>
-											<Tooltip title='Add To Wishlist' placement='top' arrow>
-												<div className='bg-primary-color h-8 w-8 rounded-[50%] flex justify-center items-center hover:bg-secondary-color hover:text-primary-color'>
-													<IoStarOutline size={16} />
-												</div>
-											</Tooltip>
-
-											<Tooltip
-												sx={{ backgroundColor: "#000" }}
-												title='Quick View'
-												placement='top'
-												arrow
-											>
-												<div className='bg-primary-color hidden semiLarge:flex h-8 w-8 rounded-[50%]  justify-center items-center hover:bg-secondary-color hover:text-primary-color'>
-													<CiImageOn size={16} />
-												</div>
-											</Tooltip>
-										</section>
-
-										{/* product images */}
-										{/* <section className='images-container border border-black'> */}
-											<div className=''>
-												<Image
-													src={
-														item?.productImages[1]?.imageUrl ||
-														item?.productImages[0]?.imageUrl
-													}
-													alt='image'
-													width={0}
-													height={0}
-													sizes='100%'
-													style={{
-														width: "100%",
-														height: "auto",
-														objectFit: "cover",
-													}}
-												/>
-											</div>
-
-											{/* <div className="border-solid border border-sky-500  opacity-0 group-hover:opacity-100">
-											<Image
-												src={item?.productImages[1]?.imageUrl}
-												alt='image'
-												width={0}
-												height={0}
-												sizes='100%'
-												style={{
-													width: "100%",
-													height: "auto",
-													objectFit: "cover",
-												}}
-											/>
-										</div> */}
-										{/* </section> */}
-									</>
-									{/* pricing */}
-									<div className='flex flex-col gap-1 justify-center items-center'>
-										<Stack spacing={1}>
-											<Rating
-												name='half-rating-read'
-												defaultValue={3}
-												size='small'
-												// precision={0.5}
-												readOnly
-											/>
-										</Stack>
-										<p className='text-center'>{item?.productName}</p>
-										<div className='flex flex-row gap-2 group-hover:invisible'>
-											<p
-												className={
-													item?.discountPrice
-														? "line-through text-sm text-secondary-text-color decoration-red-700 font-semibold"
-														: "text-sm text-black font-semibold"
-												}
-											>
-												${item?.productPrice}
-											</p>
-											{item?.discountPrice && (
-												<p className='text-sm text-black font-semibold'>{`$${item?.discountPrice}`}</p>
-											)}
-										</div>
-										<button className='w-full text-secondary-color p-2 border-solid border border-secondary-color opacity-0 group-hover:opacity-100'>
-											Quick Add
-										</button>
-									</div>
-								</div>
+								<ProductCard
+									key={index}
+									discountStatus={item?.discountStatus}
+									productName={item?.productName}
+									productPrice={item?.productPrice}
+									discountPrice={item?.discountPrice}
+									productImages={item?.productImages}
+									_id={item._id}
+									slug={item.slug}
+									// handleAddToCart={handleAddToCart}
+									// handleRemoveFromCart={handleRemoveFromCart}
+									handleAddToWishlist={() => handleAddToWishlist(item)}
+									// handleRemoveFromWishlist={handleRemoveFromWishlist}
+									// handleAddToCompare={handleAddToCompare}
+									// handleRemoveFromCompare={handleRemoveFromCompare}
+									// handleQuickView={handleQuickView}
+								/>
 						  ))
 						: numArrayAlt.map((el) => (
 								<>

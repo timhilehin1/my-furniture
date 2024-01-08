@@ -1,4 +1,3 @@
-
 import React from "react";
 import Hero from "@/components/Hero";
 import Discount from "@/components/Discount";
@@ -20,13 +19,13 @@ function HomePage() {
 			<Services />
 			<NewArrivals />
 			<Discovery />
-			<OurProducts />	
+			<OurProducts />
 			<Testimonials />
 			<FlashDeals />
 			<News />
-			<Deals />	
+			<Deals />
 			<Gallery />
-			<Footer />
+			{/* <Footer /> */}
 		</>
 	);
 }
