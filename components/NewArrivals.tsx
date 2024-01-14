@@ -16,6 +16,9 @@ import Skeleton from "react-loading-skeleton";
 import ProductCard from "./ProductCard";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { addToWishlist, removeFromWishlist } from "@/lib/slices/wishlistSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 function NewArrivals() {
 	const dispatch = useAppDispatch();
@@ -64,9 +67,34 @@ function NewArrivals() {
 		}
 	};
 
-	const handleAddToWishlist = (item: ProductInterface) => {
+	const handleAddToWishlist = (
+		item: ProductInterface,
+		event: React.SyntheticEvent
+	) => {
+		event.preventDefault();
 		// save to global store
 		dispatch(addToWishlist(item));
+		toast.success(`${item.productName} has been added to wishlist`, {
+			position: "bottom-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			progressClassName: "fancy-progress-bar",
+			// theme: "light",
+		});
+	};
+
+	const handleRemoveFromWishlist = (item: ProductInterface, event: React.SyntheticEvent) => {
+		event.preventDefault();
+		dispatch(removeFromWishlist(item));
+	};
+
+	//check if item is in wishlist state(redux)
+	const isAlreadyInWishList = (itemId: string) => {
+		return wishlist.some((item) => item._id === itemId);
 	};
 
 	//it works sha
@@ -82,6 +110,20 @@ function NewArrivals() {
 	}, []);
 	return (
 		<section className='mt-8 p-4'>
+			<ToastContainer
+				position='bottom-right'
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				style={{ fontSize: "12px", fontFamily: "Jost" }}
+				// progressClassName={()=>"bg-gray-950 h-4"}
+				// theme='light'
+			/>
 			<header className='font-semibold text-base mt-4 md:text-3xl text-center'>
 				New Arrivals
 			</header>
@@ -175,8 +217,11 @@ function NewArrivals() {
 									slug={item.slug}
 									// handleAddToCart={handleAddToCart}
 									// handleRemoveFromCart={handleRemoveFromCart}
-									handleAddToWishlist={() => handleAddToWishlist(item)}
-									// handleRemoveFromWishlist={handleRemoveFromWishlist}
+									handleAddToWishlist={(e) => handleAddToWishlist(item, e)}
+									handleRemoveFromWishlist={(e) =>
+										handleRemoveFromWishlist(item, e)
+									}
+									isAlreadyInWishList={isAlreadyInWishList(item._id)}
 									// handleAddToCompare={handleAddToCompare}
 									// handleRemoveFromCompare={handleRemoveFromCompare}
 									// handleQuickView={handleQuickView}

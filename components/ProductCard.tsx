@@ -7,7 +7,10 @@ import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import { calculateDiscount } from "@/utils/utils";
 import { IoCartOutline, IoStarOutline, IoStarSharp } from "react-icons/io5";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { CiImageOn } from "react-icons/ci";
+import Link from "next/link";
+import { getNairaFormat } from "@/utils/utils";
 
 function ProductCard({
 	discountStatus,
@@ -17,9 +20,14 @@ function ProductCard({
 	productName,
 	_id,
 	slug,
+	mode,
 	handleAddToWishlist,
+	handleRemoveFromWishlist,
+	isAlreadyInWishList
 }: ProductCardInterface) {
+	
 	return (
+		<Link href={`/products/${slug}`}>
 		<div className='cursor-pointer relative group card'>
 			<>
 				{/* discount percentage */}
@@ -30,16 +38,34 @@ function ProductCard({
 				) : null}
 				{/* wishlist and preview buttons */}
 				<section className='flex flex-col gap-5 semiLarge:gap-3 absolute right-2.5 semiLarge:right-5 top-2 text-secondary-color z-50 opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out'>
-					<Tooltip title='Quick Add' placement='top' arrow>
-						<div className='bg-primary-color h-8 w-8 rounded-[50%] flex justify-center items-center hover:bg-secondary-color hover:text-primary-color'>
-							<IoCartOutline size={16} />
-						</div>
-					</Tooltip>
-					<Tooltip title='Add To Wishlist' placement='top' arrow>
-						<div onClick={handleAddToWishlist} className='bg-primary-color h-8 w-8 rounded-[50%] flex justify-center items-center hover:bg-secondary-color hover:text-primary-color'>
-							<IoStarOutline size={16} />
-						</div>
-					</Tooltip>
+					{/* //display add to cart icon conditionally */}
+					{mode === "wishlist" ? null : (
+						<Tooltip title='Quick Add' placement='top' arrow>
+							<div className='bg-primary-color h-8 w-8 rounded-[50%] flex justify-center items-center hover:bg-secondary-color hover:text-primary-color'>
+								<IoCartOutline size={16} />
+							</div>
+						</Tooltip>
+					)}
+
+					{isAlreadyInWishList ? (
+						<Tooltip title='Remove from Wishlist' placement='top' arrow>
+							<div
+								onClick={handleRemoveFromWishlist}
+								className='bg-secondary-color h-8 w-8 rounded-[50%] flex justify-center items-center text-primary-color'
+							>
+								<FaStar size={16} />
+							</div>
+						</Tooltip>
+					) : (
+						<Tooltip title='Add To Wishlist' placement='top' arrow>
+							<div
+								onClick={handleAddToWishlist}
+								className='bg-primary-color h-8 w-8 rounded-[50%] flex justify-center items-center hover:bg-secondary-color hover:text-primary-color'
+							>
+								<FaRegStar size={16} />
+							</div>
+						</Tooltip>
+					)}
 
 					<Tooltip
 						sx={{ backgroundColor: "#000" }}
@@ -106,10 +132,10 @@ function ProductCard({
 								: "text-sm text-black font-semibold"
 						}
 					>
-						${productPrice}
+						{getNairaFormat(productPrice.toString())}
 					</p>
 					{discountPrice && (
-						<p className='text-sm text-black font-semibold'>{`$${discountPrice}`}</p>
+						<p className='text-sm text-black font-semibold'>{getNairaFormat(discountPrice.toString())}</p>
 					)}
 				</div>
 				<button className='w-full text-secondary-color p-2 border-solid border border-secondary-color opacity-0 group-hover:opacity-100'>
@@ -117,6 +143,7 @@ function ProductCard({
 				</button>
 			</div>
 		</div>
+		</Link>
 	);
 }
 

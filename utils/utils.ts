@@ -34,3 +34,18 @@ export const calculateDiscount = (price: number, discountPrice: any) => {
 	if (discountPrice === null || discountPrice >= price) return 0;
 	return `${Math.round(((price - discountPrice) / price) * 100)}%`;
 };
+
+export const NairaFormat = new Intl.NumberFormat("en-NG", {
+	maximumFractionDigits: 0,
+	currency: "NGN",
+	style: "currency",
+});
+
+export const getNairaFormat = (amount:any) => {
+	if (amount) {
+		amount = amount.replaceAll("₦", "");
+		amount = amount.replaceAll(",", "");
+		return NairaFormat.format(amount);
+	}
+	return NairaFormat.format(0);
+};

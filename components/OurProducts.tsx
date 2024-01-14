@@ -82,6 +82,7 @@ function OurProducts() {
 					justifyContent: "center",
 					display: "flex",
 					marginTop: "1rem",
+					
 				}}
 			>
 				<Tabs
@@ -96,15 +97,15 @@ function OurProducts() {
 					<Tab
 						sx={{
 							color: "#6C757D",
-							fontFamily: "Jost",
+							fontWeight: "bold",
 						}}
 						label='HOT'
 						{...accessibilityProps(0)}
 					/>
 					<Tab
 						sx={{
-							color: "#6C757D",
-							fontFamily: "Jost",
+							color: "#6C757D",fontWeight: "bold",
+
 						}}
 						label='TRENDING'
 						{...accessibilityProps(1)}
@@ -112,7 +113,7 @@ function OurProducts() {
 					<Tab
 						sx={{
 							color: "#6C757D",
-							fontFamily: "Jost",
+							fontWeight: "bold",
 						}}
 						label='SALE OFF'
 						{...accessibilityProps(2)}

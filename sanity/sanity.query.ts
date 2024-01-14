@@ -20,6 +20,8 @@ export async function fetchHero() {
 	);
 }
 
+//use one function to fetch products, just add an argument to the function
+
 export async function fetchProducts() {
 	return client.fetch(groq`
 	  *[_type == "product"] {
@@ -29,13 +31,38 @@ export async function fetchProducts() {
         "attribution": attribution
       },
 		"productName": productName,
+		"productDescription": productDescription,
 		"productPrice": productPrice,
 		"discountStatus": discountStatus,
 		"discountPrice": discountPrice,
 		"availabilityStatus": availabilityStatus,
 		"productCategory": productCategory[]->{categoryName},
-		"productSize": productSize,
+		"productSize": productSize[]->{sizeName, abbreviation},
 		"productSection": productSection[]->{sectionName},
+		"productColor": productColor[]->{colorName, colorCode},
+		"slug": slug.current,
+		"_id": _id
+	  } 
+	`);
+}
+
+export async function fetchProductBySlug(slug: string) {
+	return client.fetch(groq`*[_type == "product" && slug.current == "${slug}"] {
+		"productImages": productImages[]{
+		"imageUrl": asset->url,
+		"caption": caption,
+		"attribution": attribution
+	  },
+		"productName": productName,
+		"productDescription": productDescription,
+		"productPrice": productPrice,
+		"discountStatus": discountStatus,
+		"discountPrice": discountPrice,
+		"availabilityStatus": availabilityStatus,
+		"productCategory": productCategory[]->{categoryName},
+		"productSize": productSize[]->{sizeName, abbreviation},
+		"productSection": productSection[]->{sectionName},
+		"productColor": productColor[]->{colorName, colorCode},
 		"slug": slug.current,
 		"_id": _id
 	  } 
@@ -121,7 +148,7 @@ export async function fetchDealOfTheDay() {
 	);
 }
 
-export async function fetchGramImages(){
+export async function fetchGramImages() {
 	return client.fetch(groq`
 	*[_type == "gramGalleryImages"]{
 		"images": images[]{
@@ -134,8 +161,7 @@ export async function fetchGramImages(){
 	`);
 }
 
-
-export async function fetchBusinessInformation(){
+export async function fetchBusinessInformation() {
 	return client.fetch(groq`
 	*[_type == "businessInformation"]{
 		"businessName": businessName,

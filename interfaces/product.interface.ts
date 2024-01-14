@@ -8,6 +8,21 @@ export interface ProductSectionInterface {
 	sectionName: string;
 }
 
+export interface ProductCategoryInterface{
+	categoryName: string;
+	categorySlug?: string;
+}
+
+export interface ProductSizeInterface {
+	sizeName: string;
+	abbreviation: string;
+}
+
+export interface ProductColorInterface {
+	colorName: string;
+	colorCode: string;
+}
+
 export interface ProductCardInterface {
 	discountStatus?: boolean;
 	discountPrice?: number;
@@ -17,6 +32,9 @@ export interface ProductCardInterface {
 	_id: string;
 	slug?: string;
 	handleAddToWishlist: (item: any) => void;
+    handleRemoveFromWishlist: (item: any) => void;
+    isAlreadyInWishList?: boolean;
+    mode?: string;
 }
 
 export interface ProductInterface {
@@ -27,8 +45,9 @@ export interface ProductInterface {
 	productDescription?: string;
 	productSection: ProductSectionInterface[];
 	availabilityStatus: boolean;
-	productCategory: [];
-	productSize?: [];
+	productCategory: ProductCategoryInterface[];
+	productSize?: ProductSizeInterface[];
+	productColor?: ProductColorInterface[];
 	slug?: string;
 	productImages: imageInterface[];
 	_id: string;

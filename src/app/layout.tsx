@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { Jost } from "next/font/google";
 import BottomNav from "@/components/BottomNav";
 import Footer from "@/components/Footer";
+import { AppProvider } from "@/theme";
 const JostFont = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,12 +22,14 @@ export default function RootLayout({
 	return (
 		<html className={JostFont.className} lang='en'>
 			<body>
-				<StoreProvider>
-					<Navbar />
-					{children}
-					<BottomNav />
-					<Footer />
-				</StoreProvider>
+				<AppProvider>
+					<StoreProvider>
+						<Navbar />
+						{children}
+						<BottomNav />
+						<Footer />
+					</StoreProvider>
+				</AppProvider>
 			</body>
 		</html>
 	);

@@ -8,9 +8,23 @@ import {
 } from "react-icons/io5";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import ProductCard from "@/components/ProductCard";
+import { ProductInterface } from "@/interfaces/product.interface";
+import { removeFromWishlist } from "@/lib/slices/wishlistSlice";
+
 
 function WishlistPage() {
 	const wishlist = useAppSelector((state) => state.wishlist);
+	const dispatch = useAppDispatch();
+	const handleRemoveFromWishlist = (item: ProductInterface, event: React.SyntheticEvent) => {
+		event.preventDefault();
+		dispatch(removeFromWishlist(item));
+	};
+
+	const isAlreadyInWishList = (itemId: string) => {
+		return wishlist.some((item) => item._id === itemId);
+	};
+
+	
 	return (
 		<>
 			<section className='mt-2 md:mt-8 p-8'>
@@ -33,6 +47,11 @@ function WishlistPage() {
 									key={product._id}
 									{...product}
 									handleAddToWishlist={() => {}}
+									mode='wishlist'
+									handleRemoveFromWishlist={(e) =>
+										handleRemoveFromWishlist(product, e)
+									}
+									isAlreadyInWishList={isAlreadyInWishList(product._id)}
 								/>
 						  ))
 						: null}
