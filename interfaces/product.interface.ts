@@ -33,6 +33,7 @@ export interface ProductCardInterface {
 	slug?: string;
 	handleAddToWishlist: (item: any) => void;
     handleRemoveFromWishlist: (item: any) => void;
+	handleAddToCart?: (item: any) => void;
     isAlreadyInWishList?: boolean;
     mode?: string;
 }
@@ -41,6 +42,8 @@ export interface ProductInterface {
 	productName: string;
 	productPrice: number;
 	discountStatus?: boolean;
+	productQuantity?: number;
+	noOfItemsSold?: number;
 	discountPrice?: number;
 	productDescription?: string;
 	productSection: ProductSectionInterface[];

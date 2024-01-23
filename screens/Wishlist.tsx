@@ -1,21 +1,19 @@
 "use client";
 import React from "react";
-import {
-	IoHomeOutline,
-	IoCartOutline,
-	IoPersonOutline,
-	IoGridOutline,
-} from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import ProductCard from "@/components/ProductCard";
 import { ProductInterface } from "@/interfaces/product.interface";
 import { removeFromWishlist } from "@/lib/slices/wishlistSlice";
-
+import Link from "next/link";
 
 function WishlistPage() {
 	const wishlist = useAppSelector((state) => state.wishlist);
 	const dispatch = useAppDispatch();
-	const handleRemoveFromWishlist = (item: ProductInterface, event: React.SyntheticEvent) => {
+	const handleRemoveFromWishlist = (
+		item: ProductInterface,
+		event: React.SyntheticEvent
+	) => {
 		event.preventDefault();
 		dispatch(removeFromWishlist(item));
 	};
@@ -24,7 +22,6 @@ function WishlistPage() {
 		return wishlist.some((item) => item._id === itemId);
 	};
 
-	
 	return (
 		<>
 			<section className='mt-2 md:mt-8 p-8'>
@@ -33,7 +30,9 @@ function WishlistPage() {
 					<div className='flex gap-1 items-center text-xs font-semibold'>
 						<div className='flex gap-2 items-center'>
 							<IoHomeOutline size={12} />
-							<p>Home</p>
+							<Link href='/'>
+								<p>Home</p>
+							</Link>
 						</div>
 						<p className='font-black'>.</p>
 						<div>Wishlist</div>

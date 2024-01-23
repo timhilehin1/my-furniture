@@ -16,6 +16,7 @@ import Skeleton from "react-loading-skeleton";
 import ProductCard from "./ProductCard";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { addToWishlist, removeFromWishlist } from "@/lib/slices/wishlistSlice";
+import { addToCart, removeFromCart } from "@/lib/slices/cartSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -23,6 +24,8 @@ import Link from "next/link";
 function NewArrivals() {
 	const dispatch = useAppDispatch();
 	const wishlist = useAppSelector((state) => state.wishlist);
+	const cart = useAppSelector((state) => state.cart);
+	// console.log(cart);
 	useEffect(() => {
 		getData();
 		getGalleryImages();
@@ -87,7 +90,10 @@ function NewArrivals() {
 		});
 	};
 
-	const handleRemoveFromWishlist = (item: ProductInterface, event: React.SyntheticEvent) => {
+	const handleRemoveFromWishlist = (
+		item: ProductInterface,
+		event: React.SyntheticEvent
+	) => {
 		event.preventDefault();
 		dispatch(removeFromWishlist(item));
 	};
@@ -95,6 +101,25 @@ function NewArrivals() {
 	//check if item is in wishlist state(redux)
 	const isAlreadyInWishList = (itemId: string) => {
 		return wishlist.some((item) => item._id === itemId);
+	};
+
+	const handleAddToCart = (
+		item: ProductInterface,
+		event: React.SyntheticEvent
+	) => {
+		event.preventDefault();
+		dispatch(addToCart(item));
+		toast.success(`${item.productName} has been added to cart`, {
+			position: "bottom-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			progressClassName: "fancy-progress-bar",
+			// theme: "light",
+		});
 	};
 
 	//it works sha
@@ -215,8 +240,8 @@ function NewArrivals() {
 									productImages={item?.productImages}
 									_id={item._id}
 									slug={item.slug}
-									// handleAddToCart={handleAddToCart}
-									// handleRemoveFromCart={handleRemoveFromCart}
+									handleAddToCart={(e) => handleAddToCart(item, e)}
+									// handleRemoveFromCart={(e)=>handleRemoveFromCart(item, e)}
 									handleAddToWishlist={(e) => handleAddToWishlist(item, e)}
 									handleRemoveFromWishlist={(e) =>
 										handleRemoveFromWishlist(item, e)

@@ -11,7 +11,11 @@ import {
 import { FaRegStar, FaStar } from "react-icons/fa";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import { getNairaFormat } from "@/utils/utils";
+import {
+	getNairaFormat,
+	getSoldPercentage,
+	getAvailableQuantity,
+} from "@/utils/utils";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { FiMinus } from "react-icons/fi";
 import { SiVisa } from "react-icons/si";
@@ -24,14 +28,18 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { addToCart } from "@/lib/slices/cartSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
 function ProductDetailsPage({ slug }: { slug: string }) {
+	const dispatch = useAppDispatch();
 	const [product, setProduct] = useState<ProductInterface[]>([]);
 	const [selectables, setSelectables] = useState({
-		selectedSize: "" as string,
-		selectedColor: "" as string,
+		productSize: "" as string,
+		productColor: "" as string,
 	});
-	const itemSold = 36;
 	useEffect(() => {
 		getProduct();
 	}, []);
@@ -58,8 +66,46 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 			setProduct([]);
 		}
 	};
+
+	const handleAddToCart = (item: ProductInterface) => {
+		dispatch(addToCart(item));
+		toast.success(`${item.productName} has been added to cart`, {
+			position: "bottom-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			progressClassName: "fancy-progress-bar",
+			// theme: "light",
+		});
+	};
+
+	const handleSelectChanges = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setSelectables({
+			...selectables,
+			[e.target.name]: e.target.value,
+		});
+	};
+
 	return (
 		<section className='mt-4 p-4'>
+			{/* //make reusable component since it is used in home and details page */}
+			<ToastContainer
+				position='bottom-right'
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				style={{ fontSize: "12px", fontFamily: "Jost" }}
+				// progressClassName={()=>"bg-gray-950 h-4"}
+				// theme='light'
+			/>
 			{/* //reusable component in prduct tails and wishlist */}
 			<header className='flex gap-1 items-center text-sm font-medium'>
 				<div className='flex gap-2 items-center'>
@@ -217,21 +263,53 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 						<p className='font-semibold text-xs'>VIEW ALL REVIEWS</p>
 					</div>
 
-					<div className='product_Price text-lg font-bold'>
-						{getNairaFormat(product[0]?.productPrice?.toString())}
+					<div className='flex  gap-4 items-center'>
+						<p
+							className={
+								product[0]?.discountPrice !== null
+									? "line-through text-secondary-text-color decoration-red-700 text-lg font-semibold decoration-2"
+									: "text-lg font-bold text-black"
+							}
+						>
+							{getNairaFormat(product[0]?.productPrice.toString())}
+						</p>
+						{product[0]?.discountPrice !== null && (
+							<p className='text-lg font-bold text-black'>
+								{getNairaFormat(product[0]?.discountPrice.toString())}
+							</p>
+						)}
 					</div>
+
+					{/* <div className='flex gap-4 items-center'>
+						{product[0]?.discountPrice !== null && (<p></p>)}
+						<div className='product_Price text-lg font-bold'>
+							{getNairaFormat(product[0]?.productPrice?.toString())}
+						</div>
+					</div> */}
 
 					<div className='cursor-pointer'>
 						<ProgressBar
 							bgColor='linear-gradient(90deg, rgba(249, 200, 88, 1), rgba(255, 130, 70, 1) 100%)'
-							completed={itemSold}
+							completed={getSoldPercentage(
+								product[0]?.productQuantity,
+								product[0]?.noOfItemsSold
+							)}
 							isLabelVisible={false}
 							height='9px'
 						/>
 					</div>
 
 					<p className='text-secondary-text-color text-xs font-semibold'>
-						{itemSold}% Sold . Only 951 item(s) left in stock!
+						{getSoldPercentage(
+							product[0]?.productQuantity,
+							product[0]?.noOfItemsSold
+						)}
+						% Sold . Only{" "}
+						{getAvailableQuantity(
+							product[0]?.productQuantity,
+							product[0]?.noOfItemsSold
+						)}{" "}
+						item(s) left in stock!
 					</p>
 
 					<div className='flex gap-4 items-center'>
@@ -258,15 +336,10 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 					</div>
 
 					<select
-						name='selectedSize'
+						name='productSize'
 						className='p-2.5 border-solid border w-1/2 focus:border-[#0a5d5d] focus:outline-none rounded'
-						onChange={(e) =>
-							setSelectables({
-								...selectables,
-								[e.target.name]: e.target.value,
-							})
-						}
-						value={selectables.selectedSize}
+						onChange={handleSelectChanges}
+						value={selectables.productSize}
 					>
 						<option value={""}>Select size</option>
 						{product[0]?.productSize?.map((item) => (
@@ -276,20 +349,13 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 
 					<div className='flex gap-4 items-center'>
 						<p className='font-black text-xs'>COLOR:</p>
-						<p className='text-sm font-semibold'>
-							{selectables?.selectedColor}
-						</p>
+						<p className='text-sm font-semibold'>{selectables?.productColor}</p>
 					</div>
 					<select
-						name='selectedColor'
+						name='productColor'
 						className='p-2.5 border-solid border w-1/2 focus:border-[#0a5d5d] focus:outline-none rounded'
-						onChange={(e) =>
-							setSelectables({
-								...selectables,
-								[e.target.name]: e.target.value,
-							})
-						}
-						value={selectables.selectedColor}
+						onChange={handleSelectChanges}
+						value={selectables.productColor}
 					>
 						<option value={""}>Select color</option>
 						{product[0]?.productColor?.map((item) => (
@@ -300,7 +366,7 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 					{/* //quantity */}
 					<p className='font-black text-xs'>QUANTITY:</p>
 					<section className='flex gap-2.5'>
-						<div className='flex justify-between items-center p-2.5 border-solid border text-sm w-3/12 rounded'>
+						<div className='flex justify-between items-center p-1.5 semiLarge:p-2.5 border-solid border text-sm semiLarge:w-3/12 w-2/5 rounded'>
 							<div className='text-secondary-text-color cursor-pointer hover:text-secondary-color'>
 								<GoPlus size={16} />
 							</div>
@@ -310,7 +376,10 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 							</div>
 						</div>
 
-						<button className='w-9/12 text-sm font-semibold text-white bg-secondary-color p-2.5 rounded'>
+						<button
+							onClick={() => handleAddToCart(product[0])}
+							className='semiLarge:w-9/12 w-3/5 text-sm font-semibold text-white bg-secondary-color p-2.5 rounded'
+						>
 							ADD TO BAG
 						</button>
 					</section>
@@ -438,7 +507,7 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 				id={"shipping-tabpanel"}
 				aria-labelledby={"shipping-tab"}
 			>
-				{product[0]?.productDescription}shipping and returns
+				{product[0]?.productDescription} shipping and returns
 			</div>
 		</section>
 	);

@@ -10,6 +10,7 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
 const Navbar = () => {
 	const wishlist = useAppSelector((state) => state.wishlist);
+	const cart = useAppSelector((state) => state.cart);
 	return (
 		<>
 			<nav className='max-w-screen-xl mx-auto py-4 px-2 bg-primary-color flex justify-between items-center text-base'>
@@ -44,7 +45,14 @@ const Navbar = () => {
 
 				{/* mobile */}
 				<div className='md:hidden'>
-					<AiOutlineShoppingCart size={24} />
+					<Link href='/cart'>
+						<div className='relative'>
+							<p className='bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%] text-center justify-center items-center absolute -top-1 -right-2'>
+								{cart.length}
+							</p>
+							<AiOutlineShoppingCart size={24} />
+						</div>
+					</Link>
 				</div>
 
 				{/* desktop */}
@@ -52,14 +60,21 @@ const Navbar = () => {
 					<IoSearch size={24} />
 					<FaRegUser size={24} />
 					<Link href='/wishlist'>
-						<div className="relative">
+						<div className='relative'>
 							<p className='bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%]  justify-center items-center absolute -top-1 -right-2'>
 								{wishlist.length}
 							</p>
 							<IoIosStarOutline size={24} />
 						</div>
 					</Link>
-					<AiOutlineShoppingCart size={24} />
+					<Link href='/cart'>
+						<div className='relative'>
+							<p className='bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%] text-center  justify-center items-center absolute -top-1 -right-2'>
+								{cart.length}
+							</p>
+							<AiOutlineShoppingCart size={24} />
+						</div>
+					</Link>
 				</div>
 			</nav>
 			<hr className='border-[secondary-text-color] mx-4' />

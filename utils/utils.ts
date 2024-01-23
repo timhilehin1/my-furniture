@@ -41,11 +41,29 @@ export const NairaFormat = new Intl.NumberFormat("en-NG", {
 	style: "currency",
 });
 
-export const getNairaFormat = (amount:any) => {
+export const getNairaFormat = (amount: any) => {
 	if (amount) {
 		amount = amount.replaceAll("₦", "");
 		amount = amount.replaceAll(",", "");
 		return NairaFormat.format(amount);
 	}
 	return NairaFormat.format(0);
+};
+
+export const getSoldPercentage = (
+	total: number | undefined,
+	sold: number | undefined
+) => {
+	if (total === undefined || sold === undefined) return 0;
+	const percentage = (sold / total) * 100;
+	return Math.floor(percentage);
+};
+
+export const getAvailableQuantity = (
+	total: number | undefined,
+	sold: number | undefined
+) => {
+	if (total === undefined || sold === undefined) return 0;
+	const availableQuantity = total - sold;
+	return Math.floor(availableQuantity);
 };
