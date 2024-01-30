@@ -1,3 +1,4 @@
+
 export interface imageInterface {
 	imageUrl: string;
 	caption: string;
@@ -42,7 +43,8 @@ export interface ProductInterface {
 	productName: string;
 	productPrice: number;
 	discountStatus?: boolean;
-	productQuantity?: number;
+	productsAvailable?: number;
+	productQuantity: number;
 	noOfItemsSold?: number;
 	discountPrice?: number;
 	productDescription?: string;

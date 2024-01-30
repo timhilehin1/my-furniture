@@ -2,46 +2,54 @@ import React, { useState, useEffect } from "react";
 import { getNairaFormat } from "@/utils/utils";
 import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { cartInterface } from "@/interfaces/cart.interface";
 import { LuMinus, LuPlus } from "react-icons/lu";
-import { imageInterface } from "@/interfaces/product.interface";
+import {
+	imageInterface,
+	ProductSizeInterface,
+	ProductColorInterface,
+} from "@/interfaces/product.interface";
 
-interface CartCardInterface {
+export interface CartCardInterface {
 	productImages: imageInterface[];
+	productSize: ProductSizeInterface[];
+	productColor: ProductColorInterface[];
 	productName: string;
 	productPrice: number;
-	calculateTotal: (price: number, quantity: number) => number;
+	calculateProductPrice: (price: number, quantity: number) => number;
+	productQuantity: number;
+	increaseQuantity: () => void;
+	decreaseQuantity: () => void;
+	handleRemoveFromCart: () => void;
 }
 
 function CartCard({
 	productImages,
 	productName,
 	productPrice,
-	calculateTotal,
+	productSize,
+	productColor,
+	productQuantity,
+	calculateProductPrice,
+	increaseQuantity,
+	decreaseQuantity,
+	handleRemoveFromCart,
 }: CartCardInterface) {
-	const [quantity, setQuantity] = useState<number>(1);
-	const [total, setTotal] = useState(0);
-	const incrementQuantity = () => {
-		setQuantity((prevCount) => prevCount + 1);
-	};
-	const decrementQuantity = () => {
-		if (quantity > 1) {
-			setQuantity((prevCount) => prevCount - 1);
-		}
-	};
-
 	return (
-		<section className='p-3 border border-[#e4e6e6] flex items-center'>
+		<section className='p-3 border border-[#e4e6e6] lg:flex hidden items-center'>
 			{/* //product details */}
 			<div className='flex gap-4 items-center basis-3/5'>
-				<RiDeleteBin5Line className='cursor-pointer' size={16} />
+				<RiDeleteBin5Line
+					onClick={handleRemoveFromCart}
+					className='cursor-pointer'
+					size={16}
+				/>
 				<Image
 					priority={true}
 					src={productImages.length > 0 ? productImages[0].imageUrl : ""}
 					alt={
 						productImages.length > 0
 							? productImages[0].attribution
-							: "alternative text"
+							: "a product image"
 					}
 					width={0}
 					height={0}
@@ -56,10 +64,10 @@ function CartCard({
 				<div className='flex flex-col gap-2'>
 					<p className='text-xs font-semibold'>{productName}</p>
 					<p className='text-xs font-semibold text-secondary-text-color'>
-						Size: 5
+						Size: {productSize.length > 0 ? productSize[0].sizeName : ""}
 					</p>
 					<p className='text-xs font-semibold text-secondary-text-color'>
-						Color: Gold
+						Color: {productColor.length > 0 ? productColor[0].colorName : ""}
 					</p>
 				</div>
 			</div>
@@ -73,15 +81,15 @@ function CartCard({
 			<div className='basis-1/6'>
 				<div className='border border-[#e4e6e6] flex items-center w-9/12'>
 					<LuMinus
-						onClick={decrementQuantity}
+						onClick={decreaseQuantity}
 						className='basis-1/6 cursor-pointer'
 						size={14}
 					/>
 					<p className='text-sm font-semibold bg-[#f2f2f2] p-1 basis-8/12 text-center'>
-						{quantity}
+						{productQuantity}
 					</p>
 					<LuPlus
-						onClick={incrementQuantity}
+						onClick={increaseQuantity}
 						className='basis-1/6 cursor-pointer '
 						size={16}
 					/>
@@ -90,7 +98,9 @@ function CartCard({
 
 			{/* total */}
 			<p className=' font-semibold text-sm basis-1/6'>
-				{getNairaFormat(calculateTotal(productPrice, quantity).toString())}
+				{getNairaFormat(
+					calculateProductPrice(productPrice, productQuantity).toString()
+				)}
 			</p>
 		</section>
 	);

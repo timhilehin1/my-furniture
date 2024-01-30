@@ -36,7 +36,7 @@ function AccordionComponent({ children,title }: AccordionComponentProps) {
 				aria-controls='accordion-content'
 				id='accordion-header'
 			>
-				<Typography sx={{ color: "#000", border: "none", fontSize:'.8rem' }}>{title}</Typography>
+				<Typography sx={{ color: "#000", border: "none", fontSize:'1rem' }}>{title}</Typography>
 			</AccordionSummary>
 			<AccordionDetails>{children}</AccordionDetails>
 		</Accordion>

@@ -13,7 +13,7 @@ const Navbar = () => {
 	const cart = useAppSelector((state) => state.cart);
 	return (
 		<>
-			<nav className='max-w-screen-xl mx-auto py-4 px-2 bg-primary-color flex justify-between items-center text-base'>
+			<nav className='max-w-screen-xl mx-auto py-4 px-4 lg:px-2 bg-primary-color flex justify-between items-center text-base'>
 				{/* //mobile */}
 				<div className='flex items-center gap-3 md:hidden'>
 					<IoMenu size={24} />

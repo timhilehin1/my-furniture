@@ -87,6 +87,27 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 			...selectables,
 			[e.target.name]: e.target.value,
 		});
+		// performing serious state mutation to get the selected size and color
+		if (e.target.name === "productSize") {
+			setProduct((prev) => [
+				{
+					...prev[0],
+					productSize: [
+						{
+							sizeName: e.target.value,
+							abbreviation: e.target.value.charAt(0).toUpperCase(),
+						},
+					],
+				},
+			]);
+		} else if (e.target.name === "productColor") {
+			setProduct((prev) => [
+				{
+					...prev[0],
+					productColor: [{ colorName: e.target.value, colorCode: "" }],
+				},
+			]);
+		}
 	};
 
 	return (
@@ -275,7 +296,7 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 						</p>
 						{product[0]?.discountPrice !== null && (
 							<p className='text-lg font-bold text-black'>
-								{getNairaFormat(product[0]?.discountPrice.toString())}
+								{getNairaFormat(product[0]?.discountPrice?.toString() ?? "")}
 							</p>
 						)}
 					</div>
@@ -291,7 +312,7 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 						<ProgressBar
 							bgColor='linear-gradient(90deg, rgba(249, 200, 88, 1), rgba(255, 130, 70, 1) 100%)'
 							completed={getSoldPercentage(
-								product[0]?.productQuantity,
+								product[0]?.productsAvailable,
 								product[0]?.noOfItemsSold
 							)}
 							isLabelVisible={false}
@@ -301,12 +322,12 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 
 					<p className='text-secondary-text-color text-xs font-semibold'>
 						{getSoldPercentage(
-							product[0]?.productQuantity,
+							product[0]?.productsAvailable,
 							product[0]?.noOfItemsSold
 						)}
 						% Sold . Only{" "}
 						{getAvailableQuantity(
-							product[0]?.productQuantity,
+							product[0]?.productsAvailable,
 							product[0]?.noOfItemsSold
 						)}{" "}
 						item(s) left in stock!
@@ -332,7 +353,7 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 
 					<div className='flex gap-4 items-center'>
 						<p className='font-black text-xs'>SIZE:</p>
-						<p className='text-sm font-semibold'>{selectables?.selectedSize}</p>
+						<p className='text-sm font-semibold'>{selectables?.productSize}</p>
 					</div>
 
 					<select

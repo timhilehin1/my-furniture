@@ -55,6 +55,22 @@ function WishlistPage() {
 						  ))
 						: null}
 				</main>
+
+				{wishlist.length === 0 ? (
+					<main className='flex flex-col gap-4 mb-8'>
+						<p className='text-secondary-text-color text-sm'>
+							You have not added any items to wishlist.
+						</p>
+						<p className='text-secondary-text-color text-sm'>
+							You will find a lot of interesting products on our "Shop" page.
+						</p>
+						<Link href='/'>
+							<button className='border-none  text-primary-color bg-secondary-color  border-2   rounded-md py-2 px-4 md:py-2.5 md:px-4 text-base w-4/6 semiLarge:w-1/6 mt-6'>
+								Continue Shopping
+							</button>
+						</Link>
+					</main>
+				) : null}
 			</section>
 			<hr className='border-[secondary-text-color] mx-4' />
 		</>
