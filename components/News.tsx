@@ -1,12 +1,31 @@
-import React, { useCallback, useRef } from "react";
+"use client";
+import React, { useCallback, useRef, useEffect, useState } from "react";
 import NewsCard from "./NewsCard";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { fetchBlogPosts } from "@/sanity/sanity.query";
+import { blogInterface } from "@/interfaces/blog.interface";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function News() {
+	useEffect(() => {
+		getData();
+	}, []);
+	const [news, setNews] = useState<blogInterface[]>([]);
+
+	const getData = async () => {
+		try {
+			const data = await fetchBlogPosts();
+			console.log(data);
+			setNews(data);
+		} catch (err) {
+			console.log(err);
+			setNews([]);
+		}
+	};
 	const sliderRef = useRef(null);
 	const handlePrev = useCallback(() => {
 		if (!sliderRef.current) return;
@@ -47,17 +66,19 @@ function News() {
 				modules={[FreeMode]}
 				className='swiper'
 			>
-				<SwiperSlide>
-					<NewsCard />
-				</SwiperSlide>
-				<SwiperSlide>
-					<NewsCard />
-				</SwiperSlide>
-				<SwiperSlide>
-					<NewsCard />
-				</SwiperSlide>
+				{news.map((el: blogInterface, index) => (
+					<SwiperSlide key={index}>
+						<NewsCard
+							blogImage={el.blogImage}
+							blogTitle={el.blogTitle}
+							blogContent={el.blogContent}
+							blogDate={el.blogDate}
+							blogAuthor={el.blogAuthor}
+						/>
+					</SwiperSlide>
+				))}
 			</Swiper>
-			<div className="flex gap-4 justify-center mt-4 items-center semiLarge:hidden">
+			<div className='flex gap-4 justify-center mt-4 items-center semiLarge:hidden'>
 				<p
 					onClick={handlePrev}
 					className='cursor-pointer text-secondary-text-color'

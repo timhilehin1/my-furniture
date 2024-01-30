@@ -1,50 +1,69 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import PromoCard from "./PromoCard";
-
-const dummyData = [
-	{
-		id: 1,
-		title: "NEW PLANTS",
-		subtitle: "Get up to 40% off",
-		image: "/plants.png",
-	},
-	{
-		id: 2,
-		title: "CHAIN LAMP",
-		subtitle: "Get up to 60% off",
-		image: "/lamp.png",
-		darkMode: true,
-	},
-	{
-		id: 3,
-		title: "NEW CHAIR",
-		subtitle: "Get up to 40% off",
-		image: "/sofa.png",
-	},
-];
+import { getDiscountProducts } from "@/sanity/sanity.query";
+import { DiscountCardInterface } from "@/interfaces/discountCard.interface";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 function Discount() {
+	const [products, setProducts] = useState<DiscountCardInterface[]>([]);
+	useEffect(() => {
+		getData();
+	}, []);
+	const numArr = [1, 2, 3];
+
+	const getData = async () => {
+		//implement error boundary so one there is an issue with a component, it doesn't affect the whole app
+		try {
+			const data = await getDiscountProducts();
+			console.log(data[0].products);
+			setProducts(data[0].products);
+		} catch (err) {
+			console.log(err);
+			setProducts([]);
+		}
+	};
+
 	return (
-		<section className='p-4 mt-0 flex flex-col md:flex-row gap-4 justify-between'>
-			{dummyData.map((data) =>
-				data.darkMode ? (
-					<PromoCard
-						key={data.id}
-						title={data.title}
-						subtitle={data.subtitle}
-						image={data.image}
-						darkMode={data.darkMode}
-					/>
-				) : (
-					<PromoCard
-						key={data.id}
-						title={data.title}
-						subtitle={data.subtitle}
-						image={data.image}
-					/>
-				)
+		<>
+			{products.length <= 0 ? (
+				<div className='p-4 mt-0 flex flex-col md:flex-row gap-4 justify-between'>
+					{numArr.map((el) => (
+						<>
+							<Skeleton
+							   key={el}
+								containerClassName='flex-1'
+								height={150}
+								duration={2}
+								baseColor={"#e6e8ec"}
+							/>
+						</>
+					))}
+				</div>
+			) : (
+				<section className='p-4 mt-0 flex flex-col md:flex-row gap-4 justify-between'>
+					{products.map((product) =>
+						product.darkMode ? (
+							<PromoCard
+								key={product._id}
+								productName={product.productName}
+								discountPercentage={product.discountPercentage}
+								productImage={product.productImage}
+								darkMode={product.darkMode}
+							/>
+						) : (
+							<PromoCard
+								key={product._id}
+								productName={product.productName}
+								discountPercentage={product.discountPercentage}
+								productImage={product.productImage}
+							/>
+						)
+					)}
+				</section>
 			)}
-		</section>
+		</>
 	);
 }
 

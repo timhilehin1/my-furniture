@@ -1,16 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import { RiDoubleQuotesR } from "react-icons/ri";
+import { TestimonialInterface } from "@/interfaces/testimonial.interface";
 
-function TestimonialCard() {
+
+function TestimonialCard({ testimonialImage,testimonialName, testimonialText, testimonialDesignation }: TestimonialInterface) {
 	return (
-		<section className='flex py-8 px-4 flex-col items-center justify-center semiLarge:flex-row semiLarge:justify-between border-2 gap-12 shadow-[0_0_25px_rgba(0,0,0,0.08)]'>
+		<section className='flex lg:max-h-64 py-8 px-4 flex-col items-center justify-center semiLarge:flex-row semiLarge:justify-between border-2 gap-12 shadow-[0_0_25px_rgba(0,0,0,0.08)]'>
 			{/* <div className='flex flex-col gap-2'> */}
-			<div className='w-1/2 flex flex-col gap-2 justify-center'>
+			<div className='w-1/2  flex flex-col gap-2 justify-center'>
 				<div>
 					<Image
-						src={"/review1.png"}
-						alt='review image'
+						src={testimonialImage.imageUrl}
+						alt={testimonialImage.attribution}
 						width={0}
 						height={0}
 						sizes='100%'
@@ -18,9 +20,9 @@ function TestimonialCard() {
 					/>
 				</div>
 				<div className='text-center'>
-					<p className='font-medium'>Oladapo Timilehin</p>
+					<p className='font-medium'>{testimonialName}</p>
 					<p className='text-secondary-text-color text-sm'>
-						CEO, Dapo's Kitchen
+						{testimonialDesignation}
 					</p>
 				</div>
 			</div>
@@ -30,8 +32,7 @@ function TestimonialCard() {
 					<RiDoubleQuotesR size={24}/>
 				</p>
 				<p className='text-secondary-text-color'>
-					Lorem ipsum dolor sit amet, adipiscing elit. Sed non risus.
-					Suspendisse lectus tortor, dignissim sit amet.
+					{testimonialText}
 				</p>
 			</div>
 		</section>
