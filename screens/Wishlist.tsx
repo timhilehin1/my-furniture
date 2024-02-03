@@ -58,7 +58,7 @@ function WishlistPage() {
 
 				{wishlist.length === 0 ? (
 					<main className='flex flex-col gap-4 mb-8'>
-						<p className='text-secondary-text-color text-sm'>
+						<p className='font-bold text-secondary-text-color text-2xl'>
 							You have not added any items to wishlist.
 						</p>
 						<p className='text-secondary-text-color text-sm'>
