@@ -4,7 +4,7 @@ import CartPage from "@/screens/Cart";
 
 export const metadata: Metadata = {
 	title: "carts",
-	description: "carts",
+	description: "carts page",
 };
 
 export default function Cart() {

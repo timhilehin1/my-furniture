@@ -19,7 +19,6 @@ import AccordionComponent from "./Accordion";
 import { fetchBusinessInformation } from "@/sanity/sanity.query";
 import { informationInterface } from "@/interfaces/Information.interface";
 
-
 function Footer() {
 	useEffect(() => {
 		getData();
@@ -30,9 +29,9 @@ function Footer() {
 		try {
 			const data = await fetchBusinessInformation();
 			// console.log(data)
-			setData(data)
+			setData(data);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setData([]);
 		}
 	};
@@ -104,13 +103,13 @@ function Footer() {
 
 					<AccordionComponent title={"Newsletters"}>
 						<div className='flex  semiLarge:hidden  text-secondary-text-color flex-col gap-4'>
-							<div className='flex items-center'>
+							<div className='flex items-center justify-between border-2 border-black rounded-md'>
 								<input
 									type='text'
 									placeholder='Enter your email'
-									className='border-2 border-black rounded-md px-2 py-2 text-sm text-secondary-text-color'
+									className='px-2 py-2 text-sm text-secondary-text-color focus:border-none focus:outline-none'
 								/>
-								<button className='bg-secondary-color text-white px-2 py-2 rounded-md border-none'>
+								<button className='bg-secondary-color w-1/4 text-white px-2 py-2 border-none'>
 									Submit
 								</button>
 							</div>
@@ -166,13 +165,13 @@ function Footer() {
 
 				<div className='hidden semiLarge:flex  flex-col gap-6'>
 					<div className='text-black text-lg'>Newsletters</div>
-					<div className='flex items-center'>
+					<div className='flex items-center border-2 border-black rounded-md'>
 						<input
 							type='text'
 							placeholder='Enter your email'
-							className='border-2 border-black rounded-md px-2 py-2 text-sm text-secondary-text-color'
+							className='px-2 py-2 text-sm text-secondary-text-color focus:border-none focus:outline-none'
 						/>
-						<button className='bg-secondary-color text-white px-2 py-2 rounded-md border-none'>
+						<button className='bg-secondary-color text-white px-2 py-2 border-none'>
 							Submit
 						</button>
 					</div>

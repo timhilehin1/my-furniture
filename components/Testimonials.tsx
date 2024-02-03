@@ -23,10 +23,10 @@ function Testimonials() {
 	const getData = async () => {
 		try {
 			const data = await fetchTestimonials();
-			console.log(data);
+			// console.log(data);
 			setTestimonials(data);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setTestimonials([]);
 		}
 	};
@@ -38,17 +38,16 @@ function Testimonials() {
 
 			<main className='mt-8 flex justify-between gap-4'>
 				{testimonials.length <= 0 ? (
-					numArr.map((el) => (
-						<>
+					numArr.map((el,index) => (
+						<div key={index}>
 							<Skeleton
-								key={el}
 								containerClassName='flex-1'
 								height={400}
 								duration={2}
 								count={1}
 								baseColor={"#e6e8ec"}
 							/>
-						</>
+						</div>
 					))
 				) : (
 					<Swiper

@@ -14,10 +14,10 @@ function Gallery() {
 	const getImages = async () => {
 		try {
 			const data = await fetchGramImages();
-			console.log(data[0].images);
+			// console.log(data[0].images);
 			setImages(data[0].images);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setImages([]);
 		}
 	};
@@ -26,15 +26,14 @@ function Gallery() {
 			{images.length <= 0 ? (
 				<div className='p-4 mt-0 flex flex-col md:flex-row gap-4 justify-between'>
 					{numArr.map((el) => (
-						<>
+						<div key={el}>
 							<Skeleton
-								key={el}
 								containerClassName='flex-1'
 								height={250}
 								duration={2}
 								baseColor={"#e6e8ec"}
 							/>
-						</>
+						</div>
 					))}
 				</div>
 			) : (
@@ -44,9 +43,10 @@ function Gallery() {
 					</header>
 
 					<main className='grid grid-cols-3 semiLarge:flex semiLarge:flex-row semiLarge:justify-between px-4 gap-4 mt-8'>
-						{images.map((image) => (
+						{images.map((image, index) => (
 							<Image
-								src={image.imageUrl}
+								key={index}
+								src={image.imageUrl || ""}
 								priority={true}
 								alt={image.attribution || "image"}
 								width={0}

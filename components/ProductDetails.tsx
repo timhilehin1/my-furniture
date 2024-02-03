@@ -59,10 +59,10 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 	const getProduct = async () => {
 		try {
 			const data = await fetchProductBySlug(slug);
-			console.log(data);
+			// console.log(data);
 			setProduct(data);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setProduct([]);
 		}
 	};

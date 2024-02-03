@@ -16,8 +16,6 @@ export const metadata: Metadata = {
 	description: "Future of Interior Design",
 };
 
-
-
 export default function RootLayout({
 	children,
 }: {
@@ -25,6 +23,9 @@ export default function RootLayout({
 }) {
 	return (
 		<html className={JostFont.className} lang='en'>
+			<head>
+				<link rel='shortcut icon' href='/favicon.ico' />
+			</head>
 			<body>
 				<AppProvider>
 					<StoreProvider>
