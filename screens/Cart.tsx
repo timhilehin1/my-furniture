@@ -130,7 +130,7 @@ function CartPage() {
 									</div>
 								)}
 
-								<p>slider</p>
+								{/* <p>slider</p> */}
 								<p className='text-secondary-text-color text-xs font-medium'>
 									Free shipping for any orders above{" "}
 									<span className='text-green-600 text-xs font-bold'>
