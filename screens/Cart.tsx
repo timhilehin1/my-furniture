@@ -17,7 +17,7 @@ import SuggestedProducts from "@/components/SuggestedProducts";
 function CartPage() {
 	const cart = useAppSelector((state) => state.cart);
 	const dispatch = useAppDispatch();
-	console.log(cart);
+	// console.log(cart);
 
 	// calculate Price by multiplying price and quantity
 	const calculateProductPrice = (price: number, quantity: number) => {

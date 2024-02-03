@@ -40,7 +40,7 @@ function OurProducts() {
 				setProducts(filteredProducts);
 			}
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setProducts([]);
 		}
 	};

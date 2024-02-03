@@ -4,7 +4,7 @@ import WishlistPage from "@/screens/Wishlist";
 
 export const metadata: Metadata = {
 	title: "wishlist",
-	description: "Wishlist",
+	description: "Wishlist page",
 };
 
 export default function Wishlist() {

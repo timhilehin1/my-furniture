@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { cartInterface } from "@/interfaces/cart.interface";
 import { ProductInterface } from "@/interfaces/product.interface";
 const initialState: ProductInterface[] = [];
 
@@ -29,7 +28,7 @@ const cartSlice = createSlice({
 				productExists.productQuantity++;
 			}
 		},
-		decreaseQuantity: (state, action: PayloadAction<cartInterface>) => {
+		decreaseQuantity: (state, action: PayloadAction<ProductInterface>) => {
 			const product = action.payload;
 			const productExists = state.find((item) => item._id === product._id);
 			if (productExists && productExists.productQuantity > 1) {

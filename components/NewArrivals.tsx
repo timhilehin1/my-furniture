@@ -215,15 +215,15 @@ function NewArrivals() {
 										/>
 									</SwiperSlide>
 							  ))
-							: numArr.map((el) => (
-									<>
+							: numArr.map((el, index) => (
+									<div key={index}>
 										<Skeleton
 											containerClassName='flex-1'
 											height={580}
 											duration={2}
 											baseColor={"#e6e8ec"}
 										/>
-									</>
+									</div>
 							  ))}
 					</Swiper>
 				</section>

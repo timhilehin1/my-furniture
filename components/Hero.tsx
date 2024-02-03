@@ -21,11 +21,11 @@ export default function Hero() {
 	const getHero = async () => {
 		try {
 			const data = await fetchHero();
-			console.log(data);
+			// console.log(data);
 			setHero(data);
 		} catch (err) {
 			setHero([]);
-			console.log(err);
+			// console.log(err);
 		}
 	};
 	return (

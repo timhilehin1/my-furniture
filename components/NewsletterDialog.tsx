@@ -27,7 +27,7 @@ function NewsletterDialog() {
 	}, []);
 
 	const handleClickOpen = () => {
-		console.log("opennn");
+		// console.log("opennn");
 		setOpen(true);
 	};
 

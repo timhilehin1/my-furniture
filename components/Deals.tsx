@@ -16,7 +16,7 @@ function Deals() {
 			const data = await fetchDealOfTheDay();
 			setDeal(data);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setDeal([]);
 		}
 	};

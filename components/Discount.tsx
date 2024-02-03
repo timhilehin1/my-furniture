@@ -17,10 +17,10 @@ function Discount() {
 		//implement error boundary so one there is an issue with a component, it doesn't affect the whole app
 		try {
 			const data = await getDiscountProducts();
-			console.log(data[0].products);
+			// console.log(data[0].products);
 			setProducts(data[0].products);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setProducts([]);
 		}
 	};
@@ -29,16 +29,15 @@ function Discount() {
 		<>
 			{products.length <= 0 ? (
 				<div className='p-4 mt-0 flex flex-col md:flex-row gap-4 justify-between'>
-					{numArr.map((el) => (
-						<>
+					{numArr.map((el, index) => (
+						<div key={index}>
 							<Skeleton
-							   key={el}
 								containerClassName='flex-1'
 								height={150}
 								duration={2}
 								baseColor={"#e6e8ec"}
 							/>
-						</>
+						</div>
 					))}
 				</div>
 			) : (

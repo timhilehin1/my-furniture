@@ -19,10 +19,10 @@ function News() {
 	const getData = async () => {
 		try {
 			const data = await fetchBlogPosts();
-			console.log(data);
+			// console.log(data);
 			setNews(data);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setNews([]);
 		}
 	};
