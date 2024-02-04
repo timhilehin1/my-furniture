@@ -2,15 +2,24 @@
 import React, { useEffect } from "react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toggleSidebar } from "@/lib/slices/sidebarSlice";
 function Sidebar() {
+	const router = useRouter();
+	const dispatch = useAppDispatch();
 	const sidebar = useAppSelector((state) => state.sidebar);
 	useEffect(() => {
 		sidebar.SidebarStatus
 			? (document.body.style.overflow = "hidden")
 			: (document.body.style.overflow = "auto");
 	}, [sidebar.SidebarStatus]);
+
+	const handleRoute = (route: string) => {
+		router.push(route);
+		dispatch(toggleSidebar());
+	};
 	return (
 		<section
 			className={`h-full w-3/6 transition ease-in-out duration-500  bg-[#fff] flex flex-col gap-4 fixed z-50 ${
@@ -20,21 +29,26 @@ function Sidebar() {
 			{/* <div className='bg-text-secondary-color p-2.5 flex items-center border-b-2'>
 				Searchbar
 			</div> */}
-			<Link href={"/"}>
-				<div className='p-2.5 border-b-2'>Home</div>
-			</Link>
-			<Link href={"/"}>
-				<div className='p-2.5 border-b-2'>Collection</div>
-			</Link>
-			<Link href={"/"}>
-				<div className='p-2.5 border-b-2'>Products</div>
-			</Link>
-			<Link href={"/"}>
-				<div className='p-2.5 border-b-2'>Other Pages</div>
-			</Link>
-			<Link href={"/"}>
-				<div className='p-2.5 border-b-2'>Blog</div>
-			</Link>
+
+			<div onClick={() => handleRoute("/")} className='p-2.5 border-b-2'>
+				Home
+			</div>
+
+			<div onClick={() => handleRoute("/cart")} className='p-2.5 border-b-2'>
+				Cart
+			</div>
+
+			<div onClick={() => handleRoute("/")} className='p-2.5 border-b-2'>
+				Products
+			</div>
+
+			<div onClick={() => handleRoute("/")} className='p-2.5 border-b-2'>
+				Other Pages
+			</div>
+
+			<div onClick={() => handleRoute("/")} className='p-2.5 border-b-2'>
+				Blog
+			</div>
 
 			<footer className='flex text-xs z-[1000px] absolute top-[65%]   flex-col gap-4'>
 				{/* <p>

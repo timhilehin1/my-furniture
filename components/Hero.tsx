@@ -31,7 +31,7 @@ export default function Hero() {
 	return (
 		<>
 			{hero.length > 0 ? (
-				<section className='relative h-[15rem] md:h-[30rem] lg:h-[44rem] flex justify-center'>
+				<section className='relative h-[13rem] md:h-[29rem] lg:h-[44rem] flex justify-center'>
 					<div className='h-full w-full object-cover absolute'>
 						<Swiper
 							spaceBetween={30}

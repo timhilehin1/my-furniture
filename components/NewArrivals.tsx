@@ -19,7 +19,7 @@ import { addToWishlist, removeFromWishlist } from "@/lib/slices/wishlistSlice";
 import { addToCart, removeFromCart } from "@/lib/slices/cartSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
+
 
 function NewArrivals() {
 	const dispatch = useAppDispatch();
