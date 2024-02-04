@@ -3,12 +3,8 @@ import React, { useEffect, useState } from "react";
 import { fetchProductBySlug } from "@/sanity/sanity.query";
 import { IoHomeOutline } from "react-icons/io5";
 import Image from "next/image";
-import {
-	ProductInterface,
-	imageInterface,
-	ProductSectionInterface,
-} from "@/interfaces/product.interface";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { ProductInterface } from "@/interfaces/product.interface";
+import { FaStar } from "react-icons/fa";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import {
@@ -31,9 +27,12 @@ import Box from "@mui/material/Box";
 import { addToCart } from "@/lib/slices/cartSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 function ProductDetailsPage({ slug }: { slug: string }) {
+	const numArrayAlt = [1, 2, 3, 4, 5];
 	const dispatch = useAppDispatch();
 	const [product, setProduct] = useState<ProductInterface[]>([]);
 	const [selectables, setSelectables] = useState({
@@ -139,127 +138,67 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 
 			<main className='grid grid-cols-1 semiLarge:grid-cols-2 gap-9 lg:gap-8 mt-4'>
 				<div className='image cursor-pointer'>
-					<Image
-						priority={true}
-						src={
-							product.length > 0 ? product[0]?.productImages[0]?.imageUrl : ""
-						}
-						alt={""}
-						width={0}
-						height={0}
-						sizes='100%'
-						style={{
-							width: "100%",
-							height: "auto",
-							objectFit: "cover",
-							mixBlendMode: "normal",
-						}}
-					/>
+					{product.length <= 0 ? (
+						<Skeleton
+							containerClassName='flex-1'
+							height={580}
+							width={"100%"}
+							duration={2}
+							baseColor={"#e6e8ec"}
+						/>
+					) : (
+						<Image
+							priority={true}
+							src={
+								product.length > 0 ? product[0]?.productImages[0]?.imageUrl : ""
+							}
+							alt={""}
+							width={0}
+							height={0}
+							sizes='100%'
+							style={{
+								width: "100%",
+								height: "auto",
+								objectFit: "cover",
+								mixBlendMode: "normal",
+							}}
+						/>
+					)}
+
 					<div className='flex gap-4 items-center mt-4 justify-between p-2'>
-						<div className='mini-image bg-slate-200 cursor-pointer'>
-							<Image
-								priority={true}
-								src={
-									product.length > 0
-										? product[0]?.productImages[0]?.imageUrl
-										: ""
-								}
-								alt={""}
-								width={0}
-								height={0}
-								sizes='100%'
-								style={{
-									width: "100%",
-									height: "100px",
-									objectFit: "cover",
-									mixBlendMode: "normal",
-								}}
-							/>
-						</div>
-
-						<div className='mini-image bg-slate-200 cursor-pointer'>
-							<Image
-								priority={true}
-								src={
-									product.length > 0
-										? product[0]?.productImages[0]?.imageUrl
-										: ""
-								}
-								alt={""}
-								width={0}
-								height={0}
-								sizes='100%'
-								style={{
-									width: "100%",
-									height: "100px",
-									objectFit: "cover",
-									mixBlendMode: "normal",
-								}}
-							/>
-						</div>
-
-						<div className='mini-image bg-slate-200 cursor-pointer'>
-							<Image
-								priority={true}
-								src={
-									product.length > 0
-										? product[0]?.productImages[0]?.imageUrl
-										: ""
-								}
-								alt={""}
-								width={0}
-								height={0}
-								sizes='100%'
-								style={{
-									width: "100%",
-									height: "6.25rem",
-									objectFit: "cover",
-									mixBlendMode: "normal",
-								}}
-							/>
-						</div>
-
-						<div className='mini-image bg-slate-200 cursor-pointer'>
-							<Image
-								priority={true}
-								src={
-									product.length > 0
-										? product[0]?.productImages[0]?.imageUrl
-										: ""
-								}
-								alt={""}
-								width={0}
-								height={0}
-								sizes='100%'
-								style={{
-									width: "100%",
-									height: "6.25rem",
-									objectFit: "cover",
-									mixBlendMode: "normal",
-								}}
-							/>
-						</div>
-
-						<div className='mini-image bg-slate-200 cursor-pointer'>
-							<Image
-								priority={true}
-								src={
-									product.length > 0
-										? product[0]?.productImages[0]?.imageUrl
-										: ""
-								}
-								alt={""}
-								width={0}
-								height={0}
-								sizes='100%'
-								style={{
-									width: "100%",
-									height: "6.25rem",
-									objectFit: "cover",
-									mixBlendMode: "normal",
-								}}
-							/>
-						</div>
+						{product.length <= 0
+							? numArrayAlt.map((item) => (
+									<div key={item}>
+										<Skeleton
+											height={50}
+											width={50}
+											duration={2}
+											baseColor={"#e6e8ec"}
+										/>
+									</div>
+							  ))
+							: numArrayAlt.map((item) => (
+									<div key={item} className='bg-slate-200 cursor-pointer'>
+										<Image
+											priority={true}
+											src={
+												product.length > 0
+													? product[0]?.productImages[0]?.imageUrl
+													: ""
+											}
+											alt={""}
+											width={0}
+											height={0}
+											sizes='100%'
+											style={{
+												width: "100%",
+												height: "100px",
+												objectFit: "cover",
+												mixBlendMode: "normal",
+											}}
+										/>
+									</div>
+							  ))}
 					</div>
 				</div>
 
