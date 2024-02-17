@@ -2,7 +2,16 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import wishlistSlice from "./slices/wishlistSlice";
 import cartSlice from "./slices/cartSlice";
 import sidebarSlice from "./slices/sidebarSlice";
-import { persistReducer, persistStore } from "redux-persist";
+import {
+	persistStore,
+	persistReducer,
+	FLUSH,
+	REHYDRATE,
+	PAUSE,
+	PERSIST,
+	PURGE,
+	REGISTER,
+  } from 'redux-persist'
 import storageSession from 'redux-persist/lib/storage/session';
 
 const persistConfig = {
@@ -18,13 +27,19 @@ const persistConfig = {
   
   
 
-  export const makeStore = () => {
+export const makeStore = () => {
 	const store = configureStore({
-	  reducer: persistedReducer,
+		reducer: persistedReducer,
+		middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+		  serializableCheck: {
+			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+		  },
+		}),
 	});
 	const persistor = persistStore(store);
 	return { store, persistor };
-  };
+};
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;
