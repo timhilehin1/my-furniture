@@ -7,6 +7,7 @@ import { ProductInterface } from "@/interfaces/product.interface";
 import { removeFromWishlist } from "@/lib/slices/wishlistSlice";
 import Link from "next/link";
 
+
 function WishlistPage() {
 	const wishlist = useAppSelector((state) => state.wishlist);
 	const dispatch = useAppDispatch();
