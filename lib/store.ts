@@ -1,20 +1,32 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import wishlistSlice from "./slices/wishlistSlice";
 import cartSlice from "./slices/cartSlice";
 import sidebarSlice from "./slices/sidebarSlice";
+import { persistReducer, persistStore } from "redux-persist";
+import storageSession from 'redux-persist/lib/storage/session';
 
-export const makeStore = () => {
-	return configureStore({
-		reducer: {
-			wishlist: wishlistSlice,
-			cart:cartSlice,
-			sidebar:sidebarSlice
-		},
+const persistConfig = {
+	key: 'root',
+	storage: storageSession,
+  };
+  
+  const persistedReducer = persistReducer(persistConfig, combineReducers({
+	wishlist: wishlistSlice,
+	cart: cartSlice,
+	sidebar: sidebarSlice
+  }));
+  
+  
+
+  export const makeStore = () => {
+	const store = configureStore({
+	  reducer: persistedReducer,
 	});
-};
+	const persistor = persistStore(store);
+	return { store, persistor };
+  };
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<AppStore["store"]["getState"]>;
+export type AppDispatch = AppStore["store"]["dispatch"];
