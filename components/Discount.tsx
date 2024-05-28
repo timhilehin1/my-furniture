@@ -17,6 +17,7 @@ function Discount() {
 		//implement error boundary so one there is an issue with a component, it doesn't affect the whole app
 		try {
 			const data = await getDiscountProducts();
+			// console.log(data)
 			// console.log(data[0].products);
 			setProducts(data[0].products);
 		} catch (err) {
