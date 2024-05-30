@@ -128,7 +128,11 @@ const Navbar = () => {
 						</div>
 					</Link>
 					<Link href={"/api/auth/signup"}>
-						<div className="p-1 border-secondary-color border-2 rounded-md cursor-pointer hover:bg-secondary-color hover:text-white">
+						<div
+							className="p-1 border-secondary-color border-2 rounded-md 
+						bg-secondary-color
+						cursor-pointer text-white"
+						>
 							Sign up
 						</div>
 					</Link>
