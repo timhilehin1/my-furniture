@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { IoMenu, IoSearch } from "react-icons/io5";
 import { MdOutlineChair } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -11,7 +11,13 @@ import { toggleSidebar } from "@/lib/slices/sidebarSlice";
 import { usePathname } from "next/navigation";
 import { AiOutlineClose } from "react-icons/ai";
 import ScrollToTop from "./ScrollToTop";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import ProfileTab from "./ProfileTab";
+import Image from "next/image";
 const Navbar = () => {
+	const [showProfle, setShowProfile] = useState<boolean>(false);
+	const { user } = useUser();
+	// console.log(user);
 	const wishlist = useAppSelector((state) => state.wishlist);
 	const cart = useAppSelector((state) => state.cart);
 	const sidebar = useAppSelector((state) => state.sidebar);
@@ -104,8 +110,27 @@ const Navbar = () => {
 
 				{/* desktop */}
 				<div className="hidden lg:flex items-center gap-8">
-					<IoSearch size={22} />
-
+					<div className="rounded-full p-1.5  hover:bg-slate-200 cursor-pointer">
+						<IoSearch size={22} />
+					</div>
+					<div
+						onClick={() => setShowProfile(true)}
+						className="rounded-full p-1.5  hover:bg-slate-200 cursor-pointer"
+					>
+						{user ? (
+							<div className="rounded">
+								<Image
+									src={user?.picture || "/next.svg"}
+									alt=""
+									height={100}
+									width={50}
+									className="rounded-full w-[30px]"
+								/>
+							</div>
+						) : (
+							<FaRegUser size={20} className="cursor-pointer" />
+						)}
+					</div>
 					<Link href="/wishlist">
 						<div className="relative">
 							<p className="bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%]  justify-center items-center absolute -top-1 -right-2">
@@ -122,20 +147,7 @@ const Navbar = () => {
 							<AiOutlineShoppingCart size={24} />
 						</div>
 					</Link>
-					<Link href={"/api/auth/login"}>
-						<div className="p-1 border-secondary-color border-2 rounded-md cursor-pointer hover:bg-secondary-color hover:text-white">
-							Log in
-						</div>
-					</Link>
-					<Link href={"/api/auth/signup"}>
-						<div
-							className="p-1 border-secondary-color border-2 rounded-md 
-						bg-secondary-color
-						cursor-pointer text-white"
-						>
-							Sign up
-						</div>
-					</Link>
+					<ProfileTab isOpen={showProfle} setIsOpen={setShowProfile} />
 				</div>
 			</nav>
 			<hr className="border-[secondary-text-color] mx-4" />

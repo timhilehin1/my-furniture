@@ -10,9 +10,14 @@ const nextConfig = {
 
 			{
 				protocol: "https",
-				hostname: "ik.imagekit.io",
+				hostname: "lh3.googleusercontent.com",
 				pathname: "**",
-			}
+			},
+			{
+				protocol: "https",
+				hostname: "s.gravatar.com",
+				pathname: "**",
+			},
 		],
 	},
 };

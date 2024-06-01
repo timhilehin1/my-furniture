@@ -49,3 +49,19 @@ body {
 		)
 		rgb(var(--background-start-rgb));
 }
+
+.profileTab {
+	transform: translate(-100%);
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 50;
+	width: 100%;
+}
+.profileTab.visible {
+	transform: translateX(0);
+	height: 100%;
+	background-color: #ffffff;
+	width: 50%;
+	padding: 1rem 2rem;
+}
