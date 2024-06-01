@@ -9,6 +9,7 @@ import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { AppProvider } from "@/theme";
 import ScrollToTop from "@/components/ScrollToTop";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 const JostFont = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,19 +23,21 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html className={JostFont.className} lang='en'>
+		<html className={JostFont.className} lang="en">
 			<head>
-				<link rel='shortcut icon' href='/favicon.ico' />
+				<link rel="shortcut icon" href="/favicon.ico" />
 			</head>
 			<body>
 				<AppProvider>
 					<StoreProvider>
-						<Navbar />
-						<Sidebar />
-						{children}
-						<BottomNav />
-						<ScrollToTop />
-						<Footer />
+						<UserProvider>
+							<Navbar />
+							<Sidebar />
+							{children}
+							<BottomNav />
+							<ScrollToTop />
+							<Footer />
+						</UserProvider>
 					</StoreProvider>
 				</AppProvider>
 			</body>
