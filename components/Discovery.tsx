@@ -24,25 +24,27 @@ function Discovery() {
 		}
 	};
 	return (
-		<section className='mt-8 p-4 flex w-full gap-8 flex-col semiLarge:flex-row'>
+		<section className="mt-8 p-4 flex w-full gap-8 flex-col semiLarge:flex-row">
 			{discoveryImages.length <= 0
 				? numArr.map((el, index) => (
 						<div key={index}>
 							<Skeleton
-								containerClassName='flex-1'
+								key={index}
+								containerClassName="flex-1"
 								height={250}
 								duration={2}
 								baseColor={"#e6e8ec"}
 							/>
 						</div>
 				  ))
-				: discoveryImages.map((image) => (
+				: discoveryImages.map((image, index) => (
 						<Image
+							key={index}
 							src={image.imageUrl}
 							alt={image.attribution}
 							width={0}
 							height={0}
-							sizes='100%'
+							sizes="100%"
 							style={{ width: "100%", height: "auto" }}
 						/>
 				  ))}

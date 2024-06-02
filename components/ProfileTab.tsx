@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { MdClose } from "react-icons/md";
+import { capitalizeFirstLetter } from "@/utils/utils";
 
 function ProfileTab({
 	isOpen,
@@ -48,12 +49,22 @@ function ProfileTab({
 							isOpen ? "translate-x-0" : "translate-x-full"
 						}`}
 					>
+						{user && (
+							<div
+								onClick={handleClose}
+								className="absolute top-6 left-8 text-secondary-color font-semibold"
+							>
+								Hi, {capitalizeFirstLetter(user?.name?.split(" ")[0] ?? "")}
+							</div>
+						)}
+
 						<div
 							onClick={handleClose}
 							className="absolute top-4 right-4 cursor-pointer rounded-full p-0.5 border border-secondary-color"
 						>
 							<MdClose size={22} />
 						</div>
+
 						{/* //hide signup and register when user is logged in */}
 						{user ? (
 							""
