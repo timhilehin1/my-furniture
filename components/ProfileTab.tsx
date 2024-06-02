@@ -57,12 +57,12 @@ function ProfileTab({
 									onClick={handleClose}
 									className="absolute top-6 left-8 text-secondary-color font-semibold"
 								>
-									{user && user.name.split(" ").length > 1 ? (
+									{user?.name && user.name.split(" ").length > 1 ? (
 										`Hi, ${capitalizeFirstLetter(user.name.split(" ")[0])}`
 									) : (
 										<div className="flex gap-2 items-center">
 											<FaUser />
-											{user?.name?.substring(0,17) ?? ""}...
+											{user?.name?.substring(0, 17) ?? ""}...
 										</div>
 									)}
 								</div>
