@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { MdClose } from "react-icons/md";
 import { capitalizeFirstLetter } from "@/utils/utils";
+import { FaUser } from "react-icons/fa";
 
 function ProfileTab({
 	isOpen,
@@ -13,6 +14,7 @@ function ProfileTab({
 	setIsOpen: (arg0: boolean) => void;
 }) {
 	const { user } = useUser();
+	// console.log(user);
 	const router = useRouter();
 	const [formData, setFormData] = useState({
 		currency: "",
@@ -50,12 +52,21 @@ function ProfileTab({
 						}`}
 					>
 						{user && (
-							<div
-								onClick={handleClose}
-								className="absolute top-6 left-8 text-secondary-color font-semibold"
-							>
-								Hi, {capitalizeFirstLetter(user?.name?.split(" ")[0] ?? "")}
-							</div>
+							<>
+								<div
+									onClick={handleClose}
+									className="absolute top-6 left-8 text-secondary-color font-semibold"
+								>
+									{user?.name && user.name.split(" ").length > 1 ? (
+										`Hi, ${capitalizeFirstLetter(user.name.split(" ")[0])}`
+									) : (
+										<div className="flex gap-2 items-center">
+											<FaUser />
+											{user?.name?.substring(0, 17) ?? ""}...
+										</div>
+									)}
+								</div>
+							</>
 						)}
 
 						<div

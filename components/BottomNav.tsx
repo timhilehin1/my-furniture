@@ -15,6 +15,7 @@ import Image from "next/image";
 
 export default function BottomNav() {
 	const { user } = useUser();
+	
 	const [showProfle, setShowProfile] = useState<boolean>(false);
 	const wishlist = useAppSelector((state) => state.wishlist);
 	return (
