@@ -67,3 +67,7 @@ export const getAvailableQuantity = (
 	const availableQuantity = total - sold;
 	return Math.floor(availableQuantity);
 };
+
+export function capitalizeFirstLetter(string: string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}

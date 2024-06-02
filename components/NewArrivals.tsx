@@ -20,7 +20,6 @@ import { addToCart, removeFromCart } from "@/lib/slices/cartSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function NewArrivals() {
 	const dispatch = useAppDispatch();
 	const wishlist = useAppSelector((state) => state.wishlist);
@@ -134,9 +133,9 @@ function NewArrivals() {
 		(sliderRef.current as any)?.swiper.slideNext();
 	}, []);
 	return (
-		<section className='mt-8 p-4'>
+		<section className="mt-8 p-4">
 			<ToastContainer
-				position='bottom-right'
+				position="bottom-right"
 				autoClose={5000}
 				hideProgressBar={false}
 				newestOnTop={false}
@@ -149,37 +148,37 @@ function NewArrivals() {
 				// progressClassName={()=>"bg-gray-950 h-4"}
 				// theme='light'
 			/>
-			<header className='font-semibold text-base mt-4 md:text-3xl text-center'>
+			<header className="font-semibold text-base mt-4 md:text-3xl text-center">
 				New Arrivals
 			</header>
-			<div className='flex flex-col semiLarge:flex-row gap-4 mt-8'>
-				<section className='h-full  object-cover w-full semiLarge:w-1/4 relative'>
+			<div className="flex flex-col semiLarge:flex-row gap-4 mt-8">
+				<section className="h-full  object-cover w-full semiLarge:w-1/4 relative">
 					{galleryImages.length > 0 ? (
-						<div className='button_group flex gap-4 absolute right-1 bottom-1 z-20'>
+						<div className="button_group flex gap-4 absolute right-1 bottom-1 z-20">
 							<button
 								onClick={handlePrev}
-								className='bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3'
+								className="bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3"
 							>
 								<MdOutlineChevronLeft size={24} />
 							</button>
 							<button
 								onClick={handleNext}
-								className='bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3'
+								className="bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3"
 							>
 								<MdOutlineChevronRight size={24} />
 							</button>
 						</div>
 					) : null}
-					<div className='button_group flex gap-4 absolute right-1 bottom-1 z-20'>
+					<div className="button_group flex gap-4 absolute right-1 bottom-1 z-20">
 						<button
 							onClick={handlePrev}
-							className='bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3'
+							className="bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3"
 						>
 							<MdOutlineChevronLeft size={24} />
 						</button>
 						<button
 							onClick={handleNext}
-							className='bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3'
+							className="bg-primary-color border-2 border-secondary-color text-secondary-color rounded p-3"
 						>
 							<MdOutlineChevronRight size={24} />
 						</button>
@@ -194,7 +193,7 @@ function NewArrivals() {
 							delay: 10000,
 							disableOnInteraction: true,
 						}}
-						className='mySwiper'
+						className="mySwiper"
 					>
 						{galleryImages.length > 0
 							? galleryImages.map((item, index) => (
@@ -206,7 +205,7 @@ function NewArrivals() {
 											alt={item?.attribution}
 											width={0}
 											height={0}
-											sizes='100%'
+											sizes="100%"
 											style={{
 												width: "100%",
 												height: "auto",
@@ -218,7 +217,8 @@ function NewArrivals() {
 							: numArr.map((el, index) => (
 									<div key={index}>
 										<Skeleton
-											containerClassName='flex-1'
+											key={index}
+											containerClassName="flex-1"
 											height={580}
 											duration={2}
 											baseColor={"#e6e8ec"}
@@ -227,7 +227,7 @@ function NewArrivals() {
 							  ))}
 					</Swiper>
 				</section>
-				<section className='w-full semiLarge:w-9/12 grid grid-cols-2 semiLarge:grid-cols-3 gap-6'>
+				<section className="w-full semiLarge:w-9/12 grid grid-cols-2 semiLarge:grid-cols-3 gap-6">
 					{newArrivals.length > 0
 						? newArrivals.map((item, index) => (
 								// card component begins here
@@ -252,10 +252,11 @@ function NewArrivals() {
 									// handleQuickView={handleQuickView}
 								/>
 						  ))
-						: numArrayAlt.map((el) => (
+						: numArrayAlt.map((el, index) => (
 								<>
 									<Skeleton
-										containerClassName='flex-1'
+										key={index}
+										containerClassName="flex-1"
 										height={360}
 										duration={2}
 										baseColor={"#e6e8ec"}
