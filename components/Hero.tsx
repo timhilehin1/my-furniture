@@ -32,7 +32,7 @@ export default function Hero() {
 		<>
 			{hero.length > 0 ? (
 				<section className='relative h-[13rem] md:h-[29rem] lg:h-[44rem] flex justify-center'>
-					<div className='h-full w-full object-cover absolute'>
+					<div className='h-full w-full object-cover absolute hero-swiper'>
 						<Swiper
 							spaceBetween={30}
 							effect={"fade"}
