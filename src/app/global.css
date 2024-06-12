@@ -65,3 +65,20 @@ body {
 	width: 50%;
 	padding: 1rem 2rem;
 }
+
+.mySwiper .swiper-pagination{
+	margin-bottom: 10px;
+}
+
+.mySwiper .swiper-pagination-bullet {
+	border: 2px solid #0a5d5d;
+	padding: 4px;
+	background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+	.mySwiper .swiper-button-next,
+	.mySwiper .swiper-button-prev {
+		display: none;
+	}
+}
