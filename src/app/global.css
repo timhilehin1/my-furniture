@@ -13,6 +13,7 @@
 	--swiper-pagination-color: #0a5d5d !important;
 	--swiper-navigation-size: 2rem !important;
 	--swiper-pagination-bottom: 2px !important;
+	scroll-behavior: smooth;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,7 +67,7 @@ body {
 	padding: 1rem 2rem;
 }
 
-.mySwiper .swiper-pagination{
+.mySwiper .swiper-pagination {
 	margin-bottom: 10px;
 }
 

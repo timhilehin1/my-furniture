@@ -12,7 +12,7 @@ import { fetchHero } from "@/sanity/sanity.query";
 import { HeroInterface } from "@/interfaces/hero.interface";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
-
+import Link from "next/link";
 export default function Hero() {
 	const [hero, setHero] = useState<HeroInterface[]>([]);
 	useEffect(() => {
@@ -73,10 +73,14 @@ export default function Hero() {
 						<h3 className="text-lg md:text-5xl self-center">
 							{hero[0]?.heroTitle}
 						</h3>
-						<p className="md:text-lg md:text-center text-xs">{hero[0]?.heroDescription}</p>
+						<p className="md:text-lg md:text-center text-xs">
+							{hero[0]?.heroDescription}
+						</p>
+
 						<button className="border-solid  border-2 border-primary-color hover:bg-secondary-color hover:border-secondary-color rounded-md py-1.5 px-2 md:py-2.5 md:px-4  text-xs md:text-sm self-center">
-							Learn More
+							<Link href={"/#new-arrivals"}>Learn More</Link>
 						</button>
+
 						<NewsletterDialog />
 					</div>
 				</section>
