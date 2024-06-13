@@ -133,7 +133,7 @@ function NewArrivals() {
 		(sliderRef.current as any)?.swiper.slideNext();
 	}, []);
 	return (
-		<section className="mt-8 p-4">
+		<section id="new-arrivals" className="mt-8 p-4">
 			<ToastContainer
 				position="bottom-right"
 				autoClose={5000}
