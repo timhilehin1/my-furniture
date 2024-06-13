@@ -22,7 +22,7 @@ function NewsletterDialog() {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			handleClickOpen();
-		}, 2000);
+		}, 5000);
 		return () => clearTimeout(timer);
 	}, []);
 
@@ -80,12 +80,12 @@ function NewsletterDialog() {
 							placeholder='Enter your email address'
 						/>
 						<button className="p-2.5 rounded w-full text-primary-color bg-[#0a5d5d]">Submit</button>
-						<div className='flex justify-center mt-8  gap-4'>
+						{/* <div className='flex justify-center mt-8  gap-4'>
 						<input className=" accent-[#0a5d5d]" type='checkbox' />
 						<label className='text-xs text-secondary-text-color'>
 							DON'T SHOW THIS POPUP AGAIN
 						</label>
-						</div>
+						</div> */}
 					</section>
 				</DialogContent>
 			</Dialog>
