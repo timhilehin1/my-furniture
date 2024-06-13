@@ -302,8 +302,8 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 						value={selectables.productSize}
 					>
 						<option value={""}>Select size</option>
-						{product[0]?.productSize?.map((item) => (
-							<option value={item.sizeName}>{item.sizeName}</option>
+						{product[0]?.productSize?.map((item, index) => (
+							<option key={index} value={item.sizeName}>{item.sizeName}</option>
 						))}
 					</select>
 

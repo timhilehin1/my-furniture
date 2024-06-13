@@ -28,7 +28,7 @@ const Navbar = () => {
 		<>
 			<nav className="max-w-screen-xl mx-auto py-4 px-4 lg:px-2 bg-primary-color flex justify-between items-center text-base">
 				{/* //mobile */}
-				<div className="flex items-center gap-3 lg:hidden">
+				<div className="flex items-center gap-3 _lg:hidden">
 					{sidebar.SidebarStatus ? (
 						<AiOutlineClose
 							className="cursor-pointer"
@@ -42,26 +42,30 @@ const Navbar = () => {
 							size={24}
 						/>
 					)}
-
-					<IoSearch size={20} />
+					{/* hide searchbar on tabs and screen sizes above tabs */}
+					<IoSearch className="block semiLarge:hidden" size={20} />
+					<div className="hidden items-center gap-3 semiLarge:flex _lg:hidden">
+						<MdOutlineChair size={24} />
+						<p>MyFurniture</p>
+					</div>
 				</div>
 
 				{/* //desktop */}
-				<div className="hidden lg:flex items-center gap-3 cursor-pointer">
+				<div className="hidden _lg:flex items-center gap-3 cursor-pointer">
 					<MdOutlineChair size={24} />
 					<p>MyFurniture</p>
 				</div>
 
-				<ScrollToTop />
+				{/* <ScrollToTop /> */}
 
 				{/* mobile */}
-				<div className="flex items-center gap-3 lg:hidden">
+				<div className="flex items-center gap-3 semiLarge:hidden">
 					<MdOutlineChair size={24} />
 					<p>MyFurniture</p>
 				</div>
 
 				{/* desktop */}
-				<div className="items-center gap-16 hidden lg:flex cursor-pointer">
+				<div className="items-center gap-16 hidden _lg:flex cursor-pointer">
 					<Link
 						className={` hover:text-secondary-color${
 							pathname === "/"
@@ -97,7 +101,7 @@ const Navbar = () => {
 				</div>
 
 				{/* mobile */}
-				<div className="lg:hidden">
+				<div className="semiLarge:hidden">
 					<Link href="/cart">
 						<div className="relative">
 							<p className="bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%] text-center justify-center items-center absolute -top-1 -right-2">
@@ -109,7 +113,7 @@ const Navbar = () => {
 				</div>
 
 				{/* desktop */}
-				<div className="hidden lg:flex items-center gap-8">
+				<div className="hidden semiLarge:flex items-center gap-8">
 					<div className="rounded-full p-1.5  hover:bg-slate-200 cursor-pointer">
 						<IoSearch size={22} />
 					</div>
