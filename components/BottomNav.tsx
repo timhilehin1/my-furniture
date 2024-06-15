@@ -12,12 +12,14 @@ import Link from "next/link";
 import ProfileTab from "./ProfileTab";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function BottomNav() {
 	const { user } = useUser();
-	
+
 	const [showProfle, setShowProfile] = useState<boolean>(false);
 	const wishlist = useAppSelector((state) => state.wishlist);
+	const cart = useAppSelector((state) => state.cart);
 	return (
 		<section className="flex items-center semiLarge:hidden gap-4 fixed bottom-0 left-0 right-0 w-full py-4 px-8 justify-between bg-primary-color z-50">
 			<Link href="/">
@@ -26,12 +28,18 @@ export default function BottomNav() {
 					<p className="text-xs text-center text-secondary-text-color">Home</p>
 				</div>
 			</Link>
-			<div className="text-black border-r flex flex-col gap-0.5 justify-center items-center  pr-6">
-				<IoGridOutline size={26} />
-				<p className="text-xs text-center text-secondary-text-color">
-					Shopping
-				</p>
-			</div>
+
+			<Link href="/cart">
+				<div className="text-black border-r flex flex-col gap-0.5 justify-center items-center  pr-6 relative">
+					<p className="bg-secondary-color text-sm text-primary-color  flex h-4 w-4 rounded-[50%]  justify-center items-center absolute right-[1.12rem] -top-0.5">
+						{cart.length}
+					</p>
+					<AiOutlineShoppingCart size={28} />
+					<p className="text-xs text-center text-secondary-text-color">
+						Cart
+					</p>
+				</div>
+			</Link>
 			<Link href="/wishlist">
 				<div className="text-black border-r flex flex-col gap-0.5 justify-center items-center  pr-6 relative">
 					<p className="bg-secondary-color text-sm text-primary-color  flex h-4 w-4 rounded-[50%]  justify-center items-center absolute right-[1.12rem] -top-0.5">

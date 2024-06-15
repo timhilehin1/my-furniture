@@ -37,7 +37,7 @@ function ProductCard({
 						</div>
 					) : null}
 					{/* wishlist and preview buttons */}
-					<section className='flex flex-col gap-5 semiLarge:gap-3 absolute right-2.5 semiLarge:right-5 top-2 text-secondary-color z-50 opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out'>
+					<section className='flex flex-col gap-5 semiLarge:gap-3 absolute right-2.5 semiLarge:right-5 top-2 text-secondary-color z-50 opacity-100  semiLarge:opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out'>
 						{/* //display add to cart icon conditionally */}
 						{mode === "wishlist" ? null : (
 							<Tooltip title='Quick Add' placement='top' arrow>
@@ -127,7 +127,7 @@ function ProductCard({
 						/>
 					</Stack>
 					<p className='text-center'>{productName}</p>
-					<div className='flex flex-row gap-2 group-hover:invisible'>
+					<div className='flex flex-row gap-2 '>
 						<p
 							className={
 								discountPrice
@@ -143,7 +143,7 @@ function ProductCard({
 							</p>
 						)}
 					</div>
-					<button onClick={handleAddToCart} className='w-full text-secondary-color p-2 border-solid border border-secondary-color opacity-0 group-hover:opacity-100 hover:bg-secondary-color hover:text-primary-color'>
+					<button onClick={handleAddToCart} className='w-full text-secondary-color p-2 border-solid border border-secondary-color opacity-0 lg:group-hover:opacity-100 hover:bg-secondary-color hover:text-primary-color'>
 						Quick Add
 					</button>
 				</div>

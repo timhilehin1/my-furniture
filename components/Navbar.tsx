@@ -10,7 +10,6 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toggleSidebar } from "@/lib/slices/sidebarSlice";
 import { usePathname } from "next/navigation";
 import { AiOutlineClose } from "react-icons/ai";
-import ScrollToTop from "./ScrollToTop";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import ProfileTab from "./ProfileTab";
 import Image from "next/image";
@@ -26,7 +25,7 @@ const Navbar = () => {
 
 	return (
 		<>
-			<nav className="max-w-screen-xl mx-auto py-4 px-4 lg:px-2 bg-primary-color flex justify-between items-center text-base">
+			<nav className="max-w-screen-xl  mx-auto py-4 px-4 lg:px-2 bg-primary-color flex justify-between items-center text-base">
 				{/* //mobile */}
 				<div className="flex items-center gap-3 _lg:hidden">
 					{sidebar.SidebarStatus ? (
