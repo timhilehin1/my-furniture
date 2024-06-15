@@ -13,6 +13,7 @@ import { HeroInterface } from "@/interfaces/hero.interface";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
+import { motion } from "framer-motion"
 export default function Hero() {
 	const [hero, setHero] = useState<HeroInterface[]>([]);
 	useEffect(() => {
@@ -81,7 +82,7 @@ export default function Hero() {
 							<Link href={"/#new-arrivals"}>Learn More</Link>
 						</button>
 
-						<NewsletterDialog />
+						{/* <NewsletterDialog /> */}
 					</div>
 				</section>
 			) : (
