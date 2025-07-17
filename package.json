@@ -31,7 +31,7 @@
     "swiper": "^11.0.5"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22.16.4",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
@@ -39,5 +39,8 @@
     "react-error-overlay": "^6.0.9",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
