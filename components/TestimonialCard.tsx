@@ -13,8 +13,8 @@ function TestimonialCard({ testimonialImage,testimonialName, testimonialText, te
 					<Image
 						src={testimonialImage.imageUrl}
 						alt={testimonialImage.attribution}
-						width={0}
-						height={0}
+						width={400}
+						height={500}
 						sizes='100%'
 						style={{ width: "100%", height: "auto", objectFit: "cover" }}
 					/>

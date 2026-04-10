@@ -203,8 +203,8 @@ function NewArrivals() {
 											priority={true}
 											src={item?.imageUrl}
 											alt={item?.attribution}
-											width={0}
-											height={0}
+											width={800}
+											height={800}
 											sizes="100%"
 											style={{
 												width: "100%",

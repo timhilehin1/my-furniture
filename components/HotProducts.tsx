@@ -25,8 +25,8 @@ function HotProducts({ value, index, products }: Props) {
 									key={index}
 									src={product?.productImages[0].imageUrl}
 									alt='image'
-									width={0}
-									height={0}
+									width={800}
+									height={800}
 									sizes='100%'
 									style={{ width: "100%", height: "auto" }}
 								/>
@@ -36,8 +36,8 @@ function HotProducts({ value, index, products }: Props) {
 							<Image
 								src={products[4]?.productImages[0].imageUrl}
 								alt='image'
-								width={0}
-								height={0}
+								width={800}
+								height={800}
 								sizes='100%'
 								style={{ width: "100%", height: "auto", objectFit: "cover" }}
 							/>
@@ -48,8 +48,8 @@ function HotProducts({ value, index, products }: Props) {
 									key={index}
 									src={product?.productImages[0].imageUrl}
 									alt='image'
-									width={0}
-									height={0}
+									width={800}
+									height={800}
 									sizes='100%'
 									style={{ width: "100%", height: "auto" }}
 								/>
@@ -62,8 +62,8 @@ function HotProducts({ value, index, products }: Props) {
 							<Image
 								src={"/catch.png"}
 								alt='image'
-								width={0}
-								height={0}
+								width={540}
+								height={670}
 								sizes='100%'
 								style={{ width: "100%", height: "auto" }}
 							/>
@@ -73,16 +73,16 @@ function HotProducts({ value, index, products }: Props) {
 							<Image
 								src={"/item1.png"}
 								alt='image'
-								width={0}
-								height={0}
+								width={360}
+								height={446}
 								sizes='100%'
 								style={{ width: "100%", height: "auto" }}
 							/>
 							<Image
 								src={"/item3.png"}
 								alt='image'
-								width={0}
-								height={0}
+								width={360}
+								height={446}
 								sizes='100%'
 								style={{ width: "100%", height: "auto" }}
 							/>
@@ -90,16 +90,16 @@ function HotProducts({ value, index, products }: Props) {
 							<Image
 								src={"/item1.png"}
 								alt='image'
-								width={0}
-								height={0}
+								width={360}
+								height={446}
 								sizes='100%'
 								style={{ width: "100%", height: "auto" }}
 							/>
 							<Image
 								src={"/item3.png"}
 								alt='image'
-								width={0}
-								height={0}
+								width={360}
+								height={446}
 								sizes='100%'
 								style={{ width: "100%", height: "auto" }}
 							/>

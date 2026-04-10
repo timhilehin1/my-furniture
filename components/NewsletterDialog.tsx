@@ -59,8 +59,8 @@ function NewsletterDialog() {
 						<Image
 							src={"/newsletter_image.png"}
 							alt='News Letter image'
-							width={0}
-							height={0}
+							width={410}
+							height={550}
 							sizes='100vw'
 							style={{ width: "100%", height: "auto" }}
 						/>

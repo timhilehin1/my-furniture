@@ -42,8 +42,8 @@ function Discovery() {
 							key={index}
 							src={image.imageUrl}
 							alt={image.attribution}
-							width={0}
-							height={0}
+							width={800}
+							height={600}
 							sizes="100%"
 							style={{ width: "100%", height: "auto" }}
 						/>
