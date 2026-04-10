@@ -153,8 +153,8 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 								product.length > 0 ? product[0]?.productImages[0]?.imageUrl : ""
 							}
 							alt={""}
-							width={0}
-							height={0}
+							width={800}
+							height={800}
 							sizes='100%'
 							style={{
 								width: "100%",
@@ -187,8 +187,8 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 													: ""
 											}
 											alt={""}
-											width={0}
-											height={0}
+											width={100}
+											height={100}
 											sizes='100%'
 											style={{
 												width: "100%",

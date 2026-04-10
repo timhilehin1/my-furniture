@@ -51,8 +51,8 @@ function CartCard({
 							? productImages[0].attribution
 							: "a product image"
 					}
-					width={0}
-					height={0}
+					width={96}
+					height={100}
 					sizes='100%'
 					style={{
 						width: "6rem",

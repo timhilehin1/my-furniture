@@ -17,8 +17,8 @@ function NewsCard({
 					src={blogImage.imageUrl}
 					priority={true}
 					alt={blogImage.attribution || "image"}
-					width={0}
-					height={0}
+					width={800}
+					height={500}
 					sizes='100%'
 					style={{ width: "100%", height: "auto", objectFit: "cover" }}
 				/>

@@ -134,8 +134,8 @@ function FlashDeals() {
 									key={index}
 									src={item?.productImages[0].imageUrl}
 									alt='image'
-									width={0}
-									height={0}
+									width={800}
+									height={800}
 									sizes='100%'
 									style={{ width: "100%", height: "auto" }}
 								/>

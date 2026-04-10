@@ -36,8 +36,8 @@ function Deals() {
 							src={deal[0].productImages[0].imageUrl}
 							priority={true}
 							alt={deal[0].productImages[0].attribution || "image"}
-							width={0}
-							height={0}
+							width={800}
+							height={800}
 							sizes='100%'
 							style={{ width: "100%", height: "auto", objectFit: "cover" }}
 						/>

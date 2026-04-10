@@ -49,8 +49,8 @@ function Gallery() {
 								src={image.imageUrl || ""}
 								priority={true}
 								alt={image.attribution || "image"}
-								width={0}
-								height={0}
+								width={800}
+								height={800}
 								sizes='100%'
 								style={{ width: "100%", height: "auto", objectFit: "cover" }}
 							/>
