@@ -40,9 +40,9 @@ function PromoCard({
 					priority={true}
 					src={productImage}
 					alt='discount Image'
-					width={0}
-					height={0}
-					sizes='100%'
+					width={600}
+					height={450}
+					sizes='(max-width: 768px) 100vw, 33vw'
 					style={{ width: "100%", height: "auto" }}
 				/>
 				{/* </motion.button> */}
