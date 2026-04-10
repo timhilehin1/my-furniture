@@ -11,10 +11,12 @@ import News from "@/components/News";
 import Deals from "@/components/Deals";
 import Gallery from "@/components/Gallery";
 import Footer from "@/components/Footer";
-function HomePage() {
+import { fetchHero } from "@/sanity/sanity.query";
+async function HomePage() {
+	const heroData = await fetchHero();
 	return (
 		<>
-			<Hero />
+			<Hero hero={heroData} />
 			<Discount />
 			<Services />
 			<NewArrivals />

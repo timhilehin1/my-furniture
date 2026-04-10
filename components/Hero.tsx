@@ -1,34 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
-import NewsletterDialog from "./NewsletterDialog";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { fetchHero } from "@/sanity/sanity.query";
 import { HeroInterface } from "@/interfaces/hero.interface";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
-import { motion } from "framer-motion"
-export default function Hero() {
-	const [hero, setHero] = useState<HeroInterface[]>([]);
-	useEffect(() => {
-		getHero();
-	}, []);
-	const getHero = async () => {
-		try {
-			const data = await fetchHero();
-			// console.log(data);
-			setHero(data);
-		} catch (err) {
-			setHero([]);
-			// console.log(err);
-		}
-	};
+
+interface HeroProps {
+	hero: HeroInterface[];
+}
+
+export default function Hero({ hero }: HeroProps) {
 	return (
 		<>
 			{hero.length > 0 ? (
@@ -51,8 +39,8 @@ export default function Hero() {
 								priority={true}
 								src={hero[0]?.firstHeroImage}
 								alt="Hero Image"
-								width={0}
-								height={0}
+								width={1440}
+								height={810}
 								sizes="100vw"
 							/>
 						</SwiperSlide>
@@ -60,11 +48,10 @@ export default function Hero() {
 						<SwiperSlide>
 							<Image
 								className="w-full h-auto"
-								priority={true}
 								src={hero[0]?.secondHeroImage}
 								alt="Hero Image"
-								width={0}
-								height={0}
+								width={1440}
+								height={810}
 								sizes="100vw"
 							/>
 						</SwiperSlide>
@@ -81,8 +68,6 @@ export default function Hero() {
 						<button className="border-solid  border-2 border-primary-color hover:bg-secondary-color hover:border-secondary-color rounded-md py-1.5 px-2 md:py-2.5 md:px-4  text-xs md:text-sm self-center">
 							<Link href={"/#new-arrivals"}>Learn More</Link>
 						</button>
-
-						{/* <NewsletterDialog /> */}
 					</div>
 				</section>
 			) : (
