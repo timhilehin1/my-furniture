@@ -24,16 +24,14 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { addToCart } from "@/lib/slices/cartSlice";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useAppDispatch } from "@/lib/hooks";
+import { useAddToCartAction } from "@/hooks/useAddToCartAction";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
 function ProductDetailsPage({ slug }: { slug: string }) {
 	const numArrayAlt = [1, 2, 3, 4, 5];
-	const dispatch = useAppDispatch();
+	const { add: addToCart, isAdding } = useAddToCartAction();
+	const [quantity, setQuantity] = useState<number>(1);
 	const [product, setProduct] = useState<ProductInterface[]>([]);
 	const [selectables, setSelectables] = useState({
 		productSize: "" as string,
@@ -67,18 +65,8 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 	};
 
 	const handleAddToCart = (item: ProductInterface) => {
-		dispatch(addToCart(item));
-		toast.success(`${item.productName} has been added to cart`, {
-			position: "bottom-right",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			progressClassName: "fancy-progress-bar",
-			// theme: "light",
-		});
+		if (!item || isAdding(item._id)) return;
+		addToCart(item, quantity);
 	};
 
 	const handleSelectChanges = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -112,20 +100,6 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 	return (
 		<section className='mt-4 p-4'>
 			{/* //make reusable component since it is used in home and details page */}
-			<ToastContainer
-				position='bottom-right'
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				style={{ fontSize: "12px", fontFamily: "Jost" }}
-				// progressClassName={()=>"bg-gray-950 h-4"}
-				// theme='light'
-			/>
 			{/* //reusable component in prduct tails and wishlist */}
 			<header className='flex gap-1 items-center text-sm font-medium'>
 				<div className='flex gap-2 items-center'>
@@ -327,20 +301,27 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 					<p className='font-black text-xs'>QUANTITY:</p>
 					<section className='flex gap-2.5'>
 						<div className='flex justify-between items-center p-1.5 semiLarge:p-2.5 border-solid border text-sm semiLarge:w-3/12 w-2/5 rounded'>
-							<div className='text-secondary-text-color cursor-pointer hover:text-secondary-color'>
+							<button
+								aria-label='Increase quantity'
+								onClick={() => setQuantity((q) => q + 1)}
+								className='text-secondary-text-color cursor-pointer hover:text-secondary-color'>
 								<GoPlus size={16} />
-							</div>
-							<p>1</p>
-							<div className='text-secondary-text-color cursor-pointer hover:text-secondary-color'>
+							</button>
+							<p>{quantity}</p>
+							<button
+								aria-label='Decrease quantity'
+								onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+								className='text-secondary-text-color cursor-pointer hover:text-secondary-color'>
 								<FiMinus size={16} />
-							</div>
+							</button>
 						</div>
 
 						<button
 							onClick={() => handleAddToCart(product[0])}
-							className='semiLarge:w-9/12 w-3/5 text-sm font-semibold text-white bg-secondary-color p-2.5 rounded'
+							disabled={!product[0] || isAdding(product[0]._id)}
+							className='semiLarge:w-9/12 w-3/5 text-sm font-semibold text-white bg-secondary-color p-2.5 rounded disabled:opacity-60'
 						>
-							ADD TO BAG
+							{product[0] && isAdding(product[0]._id) ? "ADDING…" : "ADD TO BAG"}
 						</button>
 					</section>
 

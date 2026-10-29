@@ -9,7 +9,9 @@ import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { AppProvider } from "@/theme";
 import ScrollToTop from "@/components/ScrollToTop";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
+import QueryProvider from "@/lib/QueryProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const JostFont = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -30,14 +32,20 @@ export default function RootLayout({
 			<body>
 				<AppProvider>
 					<StoreProvider>
-						<UserProvider>
+						<QueryProvider>
 							<Navbar />
 							<Sidebar />
 							{children}
 							<BottomNav />
 							<ScrollToTop />
 							<Footer />
-						</UserProvider>
+							<ToastContainer
+								position="bottom-right"
+								autoClose={5000}
+								pauseOnHover
+								style={{ fontSize: "12px", fontFamily: "Jost" }}
+							/>
+						</QueryProvider>
 					</StoreProvider>
 				</AppProvider>
 			</body>

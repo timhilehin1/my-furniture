@@ -10,15 +10,14 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { toggleSidebar } from "@/lib/slices/sidebarSlice";
 import { usePathname } from "next/navigation";
 import { AiOutlineClose } from "react-icons/ai";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useProfile } from "@/hooks/api/useAuth";
+import { useCartCount } from "@/hooks/api/useCart";
 import ProfileTab from "./ProfileTab";
-import Image from "next/image";
 const Navbar = () => {
 	const [showProfle, setShowProfile] = useState<boolean>(false);
-	const { user } = useUser();
-	// console.log(user);
+	const { data: user } = useProfile();
 	const wishlist = useAppSelector((state) => state.wishlist);
-	const cart = useAppSelector((state) => state.cart);
+	const cartCount = useCartCount();
 	const sidebar = useAppSelector((state) => state.sidebar);
 	const dispatch = useAppDispatch();
 	const pathname = usePathname();
@@ -104,7 +103,7 @@ const Navbar = () => {
 					<Link href="/cart">
 						<div className="relative">
 							<p className="bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%] text-center justify-center items-center absolute -top-1 -right-2">
-								{cart.length}
+								{cartCount}
 							</p>
 							<AiOutlineShoppingCart size={24} />
 						</div>
@@ -121,14 +120,9 @@ const Navbar = () => {
 						className="rounded-full p-1.5  hover:bg-slate-200 cursor-pointer"
 					>
 						{user ? (
-							<div className="rounded">
-								<Image
-									src={user?.picture || "/next.svg"}
-									alt=""
-									height={100}
-									width={50}
-									className="rounded-full w-[30px]"
-								/>
+							<div className="rounded-full w-[30px] h-[30px] bg-secondary-color text-primary-color text-xs font-semibold flex items-center justify-center">
+								{user.firstName?.[0]?.toUpperCase()}
+								{user.lastName?.[0]?.toUpperCase()}
 							</div>
 						) : (
 							<FaRegUser size={20} className="cursor-pointer" />
@@ -145,7 +139,7 @@ const Navbar = () => {
 					<Link href="/cart">
 						<div className="relative">
 							<p className="bg-secondary-color text-xs text-primary-color  semiLarge:flex h-4 w-4 rounded-[50%] text-center  justify-center items-center absolute -top-1 -right-2">
-								{cart.length}
+								{cartCount}
 							</p>
 							<AiOutlineShoppingCart size={24} />
 						</div>
