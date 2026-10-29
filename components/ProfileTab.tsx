@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useProfile, useLogout } from "@/hooks/api/useAuth";
 import { MdClose } from "react-icons/md";
 import { capitalizeFirstLetter } from "@/utils/utils";
 import { FaUser } from "react-icons/fa";
@@ -13,8 +13,8 @@ function ProfileTab({
 	isOpen: boolean;
 	setIsOpen: (arg0: boolean) => void;
 }) {
-	const { user } = useUser();
-	// console.log(user);
+	const { data: user } = useProfile();
+	const logout = useLogout();
 	const router = useRouter();
 	const [formData, setFormData] = useState({
 		currency: "",
@@ -57,14 +57,10 @@ function ProfileTab({
 									onClick={handleClose}
 									className="absolute top-6 left-8 text-secondary-color font-semibold"
 								>
-									{user?.name && user.name.split(" ").length > 1 ? (
-										`Hi, ${capitalizeFirstLetter(user.name.split(" ")[0])}`
-									) : (
-										<div className="flex gap-2 items-center">
-											<FaUser />
-											{user?.name?.substring(0, 17) ?? ""}...
-										</div>
-									)}
+									<div className="flex gap-2 items-center">
+										<FaUser />
+										{`Hi, ${capitalizeFirstLetter(user.firstName ?? "")}`}
+									</div>
 								</div>
 							</>
 						)}
@@ -84,7 +80,7 @@ function ProfileTab({
 								{" "}
 								<p
 									onClick={() => {
-										router.push("/api/auth/login");
+										router.push("/login");
 										handleClose();
 									}}
 									className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg"
@@ -93,7 +89,7 @@ function ProfileTab({
 								</p>
 								<p
 									onClick={() => {
-										router.push("/api/auth/signup");
+										router.push("/register");
 										handleClose();
 									}}
 									className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg"
@@ -113,18 +109,37 @@ function ProfileTab({
 							Wishlist
 						</p>
 
-						<p className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg">
-							Checkout
-						</p>
 						<p
-							className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg"
 							onClick={() => {
-								router.push("/api/auth/logout");
+								router.push("/cart");
 								handleClose();
 							}}
+							className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg"
 						>
-							Logout
+							Checkout
 						</p>
+						{user && (
+							<p
+								onClick={() => {
+									router.push("/orders");
+									handleClose();
+								}}
+								className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg"
+							>
+								My Orders
+							</p>
+						)}
+						{user && (
+							<p
+								className="cursor-pointer hover:bg-slate-200 p-1 hover:rounded-lg"
+								onClick={() => {
+									logout(); // also redirects home
+									handleClose();
+								}}
+							>
+								Logout
+							</p>
+						)}
 						<hr className="border-[secondary-text-color]" />
 						<p>Currency</p>
 						<select

@@ -16,15 +16,13 @@ import Skeleton from "react-loading-skeleton";
 import ProductCard from "./ProductCard";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { addToWishlist, removeFromWishlist } from "@/lib/slices/wishlistSlice";
-import { addToCart, removeFromCart } from "@/lib/slices/cartSlice";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useAddToCartAction } from "@/hooks/useAddToCartAction";
+import { toast } from "react-toastify";
 
 function NewArrivals() {
 	const dispatch = useAppDispatch();
 	const wishlist = useAppSelector((state) => state.wishlist);
-	const cart = useAppSelector((state) => state.cart);
-	// console.log(cart);
+	const { add: addToCart } = useAddToCartAction();
 	useEffect(() => {
 		getData();
 		getGalleryImages();
@@ -107,18 +105,7 @@ function NewArrivals() {
 		event: React.SyntheticEvent
 	) => {
 		event.preventDefault();
-		dispatch(addToCart(item));
-		toast.success(`${item.productName} has been added to cart`, {
-			position: "bottom-right",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			progressClassName: "fancy-progress-bar",
-			// theme: "light",
-		});
+		addToCart(item);
 	};
 
 	//it works sha
@@ -134,20 +121,6 @@ function NewArrivals() {
 	}, []);
 	return (
 		<section id="new-arrivals" className="mt-8 p-4">
-			<ToastContainer
-				position="bottom-right"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				style={{ fontSize: "12px", fontFamily: "Jost" }}
-				// progressClassName={()=>"bg-gray-950 h-4"}
-				// theme='light'
-			/>
 			<header className="font-semibold text-base mt-4 md:text-3xl text-center">
 				New Arrivals
 			</header>
