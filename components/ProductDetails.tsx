@@ -25,6 +25,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useAddToCartAction } from "@/hooks/useAddToCartAction";
+import { useTrackProductView } from "@/hooks/useTrackProductView";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
@@ -33,6 +34,8 @@ function ProductDetailsPage({ slug }: { slug: string }) {
 	const { add: addToCart, isAdding } = useAddToCartAction();
 	const [quantity, setQuantity] = useState<number>(1);
 	const [product, setProduct] = useState<ProductInterface[]>([]);
+	// fires once the Sanity product has loaded; the backend validates the _id
+	useTrackProductView(product[0]?._id);
 	const [selectables, setSelectables] = useState({
 		productSize: "" as string,
 		productColor: "" as string,
