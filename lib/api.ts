@@ -1,4 +1,5 @@
 import { store } from "./store";
+import { getVisitorId, isUuid } from "./visitorId";
 import { logout, setTokens } from "./slices/authSlice";
 import {
 	AuthResponse,
@@ -164,11 +165,25 @@ export async function apiFetch<T>(
 	return res.json() as Promise<T>;
 }
 
+// links guest product views to the account; omitted rather than sent invalid, since a bad id 400s the login
+const withVisitorId = <T extends object>(body: T) => {
+	const visitorId = getVisitorId();
+	return isUuid(visitorId) ? { ...body, visitorId } : body;
+};
+
 export const authApi = {
 	register: (body: RegisterPayload) =>
-		apiFetch<AuthResponse>("/auth/register", { method: "POST", body, auth: false }),
+		apiFetch<AuthResponse>("/auth/register", {
+			method: "POST",
+			body: withVisitorId(body),
+			auth: false,
+		}),
 	login: (body: LoginPayload) =>
-		apiFetch<AuthResponse>("/auth/login", { method: "POST", body, auth: false }),
+		apiFetch<AuthResponse>("/auth/login", {
+			method: "POST",
+			body: withVisitorId(body),
+			auth: false,
+		}),
 	profile: () => apiFetch<User>("/profile"),
 };
 
@@ -201,6 +216,15 @@ export const ordersApi = {
 		apiFetch<OrderStatusResponse>(
 			`/orders/${encodeURIComponent(orderId)}/status`
 		),
+};
+
+export const eventsApi = {
+	// optional auth: sends the token when logged in so the backend can attach the user
+	productViewed: (productId: string, visitorId: string) =>
+		apiFetch<void>("/events/product-viewed", {
+			method: "POST",
+			body: { productId, visitorId },
+		}),
 };
 
 export const paymentsApi = {
